@@ -2,10 +2,1404 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>L3 Study Helper Pro | Rwanda Exam Prep</title>
+    <style>
+        /* ========================================
+           GLOBAL STYLES & RESET
+           ======================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ========================================
+           HEADER SECTION
+           ======================================== */
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 1rem;
+            opacity: 0.95;
+        }
+
+        .rwanda-badge {
+            background: rgba(255,255,255,0.2);
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-top: 8px;
+            font-size: 0.85rem;
+        }
+
+        /* ========================================
+           LANGUAGE TOGGLE (EN/KIN)
+           ======================================== */
+        .lang-toggle {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            background: white;
+            border-radius: 25px;
+            padding: 5px 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+
+        .lang-btn {
+            background: none;
+            border: none;
+            padding: 4px 10px;
+            margin: 0 2px;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+
+        .lang-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        /* ========================================
+           TAB NAVIGATION
+           ======================================== */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            color: white;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .tab-btn.active {
+            background: white;
+            color: #667eea;
+        }
+
+        .tab-btn:hover {
+            background: rgba(255,255,255,0.4);
+            transform: translateY(-2px);
+        }
+
+        /* ========================================
+           MAIN CONTENT PANELS
+           ======================================== */
+        .panel {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .panel.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        /* ========================================
+           NOTES SECTION
+           ======================================== */
+        .notes-area {
+            width: 100%;
+            min-height: 280px;
+            padding: 15px;
+            font-size: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-family: inherit;
+            resize: vertical;
+        }
+
+        .notes-area:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        /* ========================================
+           BUTTONS
+           ======================================== */
+        .btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            margin-right: 8px;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+
+        .btn-orange { background: #e67e22; }
+        .btn-orange:hover { background: #d35400; }
+
+        .btn-green { background: #27ae60; }
+        .btn-green:hover { background: #229954; }
+
+        .btn-red { background: #e74c3c; }
+        .btn-red:hover { background: #c0392b; }
+
+        .btn-blue { background: #3498db; }
+        .btn-blue:hover { background: #2980b9; }
+
+        .btn-purple { background: #9b59b6; }
+        .btn-purple:hover { background: #8e44ad; }
+
+        /* ========================================
+           FLASHCARD STYLES
+           ======================================== */
+        .flashcard {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 15px 0;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            min-height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .flashcard:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        .card-question {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .card-answer {
+            font-size: 1.1rem;
+            color: #e67e22;
+        }
+
+        .flashcard-list {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        /* ========================================
+           ENHANCED QUIZ SECTION
+           ======================================== */
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .quiz-stats {
+            background: #667eea;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .quiz-question {
+            background: #f7f9fc;
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 18px;
+            border-left: 4px solid #667eea;
+        }
+
+        .quiz-question h3 {
+            margin-bottom: 12px;
+            color: #2c3e50;
+            font-size: 1rem;
+        }
+
+        .quiz-option {
+            display: block;
+            padding: 10px 12px;
+            margin: 8px 0;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .quiz-option:hover {
+            background: #edf2f7;
+            transform: translateX(5px);
+        }
+
+        .quiz-option.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .quiz-option.correct-answer {
+            background: #27ae60;
+            color: white;
+            border-color: #27ae60;
+        }
+
+        .quiz-option.wrong-answer {
+            background: #e74c3c;
+            color: white;
+            border-color: #e74c3c;
+        }
+
+        .quiz-result {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .quiz-result.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .quiz-result.fail {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .quiz-result.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .explanation-box {
+            margin-top: 10px;
+            padding: 10px;
+            background: #fff3cd;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .quiz-list {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        /* ========================================
+           PAST PAPER SECTION
+           ======================================== */
+        .pastpaper-box {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .upload-area {
+            border: 2px dashed #667eea;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 15px;
+        }
+
+        .upload-area:hover {
+            background: #f0f4ff;
+            border-color: #764ba2;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .manual-textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            resize: vertical;
+            margin-top: 10px;
+        }
+
+        .manual-textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .preview-box {
+            background: #e8f0fe;
+            padding: 12px;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: none;
+            max-height: 150px;
+            overflow-y: auto;
+            font-size: 0.85rem;
+        }
+
+        .success-box {
+            background: #d4edda;
+            padding: 12px;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: none;
+            color: #155724;
+        }
+
+        .info-text {
+            color: #718096;
+            text-align: center;
+            padding: 30px;
+        }
+
+        /* ========================================
+           RESPONSIVE DESIGN
+           ======================================== */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .tab-btn {
+                padding: 8px 14px;
+                font-size: 0.85rem;
+            }
+            
+            .btn {
+                padding: 8px 14px;
+                font-size: 0.85rem;
+                margin-right: 5px;
+            }
+            
+            .quiz-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .tabs {
+                gap: 5px;
+            }
+            
+            .tab-btn {
+                padding: 6px 10px;
+                font-size: 0.75rem;
+            }
+            
+            .btn {
+                padding: 6px 10px;
+                font-size: 0.75rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    
+    <!-- ========================================
+         LANGUAGE TOGGLE BUTTONS
+         ======================================== -->
+    <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="rw">KIN</button>
+    </div>
+
+    <div class="container">
+        <!-- ========================================
+             HEADER SECTION
+             ======================================== -->
+        <div class="header">
+            <h1>📚 L3 Study Helper Pro</h1>
+            <p>Write notes • Make flashcards • Take smart quizzes</p>
+            <div class="rwanda-badge">🇷🇼 Rwanda L3 Exam Prep | REB Aligned</div>
+        </div>
+
+        <!-- ========================================
+             TAB NAVIGATION
+             ======================================== -->
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="notes">✏️ Notes</button>
+            <button class="tab-btn" data-tab="flashcards">🃏 Flashcards</button>
+            <button class="tab-btn" data-tab="quiz">✅ Smart Quiz</button>
+            <button class="tab-btn" data-tab="pastpaper">📄 Past Paper</button>
+        </div>
+
+        <!-- ========================================
+             NOTES PANEL - User writes study notes here
+             ======================================== -->
+        <div class="panel active" id="notes-panel">
+            <h2>📝 Your Study Notes</h2>
+            <p style="color: #718096; margin-bottom: 12px; font-size: 0.9rem;">Write or paste your L3 subject notes below</p>
+            <textarea class="notes-area" id="notesInput" placeholder="Example:&#10;&#10;Rwanda's three main geographical regions:&#10;1. Congo-Nile ridge (western mountains)&#10;2. Central plateau&#10;3. Eastern savannahs&#10;&#10;Lake Kivu is one of Africa's deepest lakes.&#10;&#10;Rwanda gained independence in 1962."></textarea>
+            <div>
+                <button class="btn" id="saveNotesBtn">💾 Save Notes</button>
+                <button class="btn btn-orange" id="generateFlashcardsBtn">✨ Make Flashcards</button>
+                <button class="btn btn-green" id="generateQuizBtn">🎯 Make Smart Quiz</button>
+            </div>
+            <div id="saveConfirm" style="margin-top: 12px; padding: 8px; background: #d4edda; border-radius: 8px; display: none; color: #155724;">
+                ✅ Notes saved successfully!
+            </div>
+        </div>
+
+        <!-- ========================================
+             FLASHCARDS PANEL - Study with flip cards
+             ======================================== -->
+        <div class="panel" id="flashcards-panel">
+            <h2>🃏 Study Flashcards</h2>
+            <p style="color: #718096; margin-bottom: 12px; font-size: 0.9rem;">Click any card to flip and see the answer</p>
+            <div id="flashcardsContainer">
+                <div class="info-text">📌 No flashcards yet. Go to Notes tab and click "Make Flashcards"</div>
+            </div>
+            <button class="btn btn-red" id="resetFlashcardsBtn">🗑️ Delete All Flashcards</button>
+        </div>
+
+        <!-- ========================================
+             ENHANCED QUIZ PANEL - Multiple quiz types
+             ======================================== -->
+        <div class="panel" id="quiz-panel">
+            <div class="quiz-header">
+                <h2>✅ Smart Quiz System</h2>
+                <div class="quiz-stats" id="quizStats">Questions: 0</div>
+            </div>
+            <p style="color: #718096; margin-bottom: 12px; font-size: 0.9rem;">Test your knowledge with interactive quizzes</p>
+            
+            <!-- Quiz Type Selector -->
+            <div style="margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
+                <button class="btn btn-blue" id="standardQuizBtn">📋 Standard Quiz</button>
+                <button class="btn btn-purple" id="reviewWrongBtn">🔄 Review Wrong Answers</button>
+                <button class="btn btn-orange" id="randomQuizBtn">🎲 Random Order Quiz</button>
+            </div>
+            
+            <!-- Quiz Container -->
+            <div id="quizContainer">
+                <div class="info-text">📌 No quiz yet. Go to Notes tab and click "Make Smart Quiz"</div>
+            </div>
+            
+            <!-- Quiz Results Area -->
+            <div id="quizResult" class="quiz-result"></div>
+            
+            <!-- Quiz Control Buttons -->
+            <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px;">
+                <button class="btn btn-green" id="submitQuizBtn" style="display: none;">📊 Submit & Grade</button>
+                <button class="btn btn-blue" id="showExplanationsBtn" style="display: none;">💡 Show Explanations</button>
+                <button class="btn btn-orange" id="retryWrongBtn" style="display: none;">🔄 Retry Wrong Answers</button>
+                <button class="btn btn-red" id="resetQuizBtn" style="display: none;">🗑️ Reset Quiz</button>
+            </div>
+        </div>
+
+        <!-- ========================================
+             PAST PAPER PANEL - Import exam questions
+             ======================================== -->
+        <div class="panel" id="pastpaper-panel">
+            <h2>📄 Past Paper to Study</h2>
+            <p style="color: #718096; margin-bottom: 12px; font-size: 0.9rem;">Upload a past exam or paste the questions</p>
+
+            <div class="pastpaper-box">
+                <h3>📁 Option 1: Upload a Text File</h3>
+                <div class="upload-area" id="uploadArea">
+                    <div>📂 Click to select a .txt file</div>
+                    <div style="font-size: 0.8rem; margin-top: 8px; color: #666;">(Save your exam as .txt file first)</div>
+                    <input type="file" id="fileInput" accept=".txt" class="file-input">
+                </div>
+                <div id="fileNameDisplay" style="margin-top: 8px; font-size: 0.85rem; color: #27ae60; display: none;"></div>
+
+                <h3 style="margin-top: 20px;">✏️ Option 2: Paste Exam Questions Here</h3>
+                <textarea id="pastPaperText" class="manual-textarea" rows="6" placeholder="Paste your exam questions here...&#10;&#10;Example:&#10;1. What are the three branches of government in Rwanda?&#10;2. Explain the role of the Senate.&#10;3. When was the constitution adopted?"></textarea>
+
+                <button class="btn btn-orange" id="processPastPaperBtn" style="width: 100%; margin-top: 15px;">🚀 Generate Flashcards & Quiz from Past Paper</button>
+
+                <div id="previewArea" class="preview-box"></div>
+                <div id="successArea" class="success-box"></div>
+            </div>
+
+            <div style="background: #fff3cd; padding: 12px; border-radius: 10px; margin-top: 15px;">
+                💡 <strong>Tip:</strong> Copy any exam questions from PDF, Word, or website and paste them above. Then click the button to automatically create study materials!
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========================================
+        // GLOBAL VARIABLES & STATE MANAGEMENT
+        // ========================================
+        let currentLang = 'en';                    // Current language (en/rw)
+        let currentNotes = localStorage.getItem('l3_notes') || '';  // Saved notes
+        let flashcards = [];                        // Array of flashcard objects
+        let currentQuiz = [];                       // Array of quiz question objects
+        let userAnswers = {};                       // Stores user's selected answers
+        let quizSubmitted = false;                  // Track if quiz has been submitted
+        let wrongQuestions = [];                    // Track questions answered incorrectly
+        let quizMode = 'standard';                  // Current quiz mode (standard/random/review)
+
+        // ========================================
+        // TRANSLATIONS (English & Kinyarwanda)
+        // ========================================
+        const translations = {
+            en: {
+                mainTitle: "📚 L3 Study Helper Pro",
+                subTitle: "Write notes • Make flashcards • Take smart quizzes",
+                notesTitle: "📝 Your Study Notes",
+                notesDesc: "Write or paste your L3 subject notes below",
+                saveConfirm: "✅ Notes saved successfully!",
+                noFlashcards: "📌 No flashcards yet. Go to Notes tab and click 'Make Flashcards'",
+                noQuiz: "📌 No quiz yet. Go to Notes tab and click 'Make Smart Quiz'",
+                score: "Score",
+                excellent: "Excellent! 🎉",
+                goodJob: "Good job! 👍",
+                keepStudying: "Keep studying! 📚",
+                reviewMore: "Review your notes again 💪"
+            },
+            rw: {
+                mainTitle: "📚 Urufasha rwo Kwiga L3",
+                subTitle: "Andika inoti • Kora amakarita • Kora ibizamini byiganje",
+                notesTitle: "📝 Inoti zawe zo Kwiga",
+                notesDesc: "Andika cyangwa ushiremo inoti zawe za L3 hano",
+                saveConfirm: "✅ Inoti zabitswe neza!",
+                noFlashcards: "📌 Nta makarita yabonetse. Kanda 'Make Flashcards' mu gice cy'Inoti",
+                noQuiz: "📌 Nta kizamini gihari. Kanda 'Make Smart Quiz' mu gice cy'Inoti",
+                score: "Amanota",
+                excellent: "Umutiyemeriye! 🎉",
+                goodJob: "Ukoze neza! 👍",
+                keepStudying: "Komeza kwiga! 📚",
+                reviewMore: "Ongera usubire inoti zawe 💪"
+            }
+        };
+
+        // ========================================
+        // LANGUAGE UPDATE FUNCTION
+        // Updates all UI text based on selected language
+        // ========================================
+        function updateLanguage() {
+            const t = translations[currentLang];
+            document.querySelector('.header h1').innerText = t.mainTitle;
+            document.querySelector('.header p').innerText = t.subTitle;
+            document.getElementById('notesTitle').innerText = t.notesTitle;
+            document.getElementById('notesDesc').innerText = t.notesDesc;
+            
+            // Update empty states
+            const noFlashcardMsg = document.querySelector('#flashcardsContainer .info-text');
+            if (noFlashcardMsg && flashcards.length === 0) {
+                noFlashcardMsg.innerText = t.noFlashcards;
+            }
+            const noQuizMsg = document.querySelector('#quizContainer .info-text');
+            if (noQuizMsg && currentQuiz.length === 0) {
+                noQuizMsg.innerText = t.noQuiz;
+            }
+        }
+
+        // ========================================
+        // LOAD SAVED DATA FROM LOCAL STORAGE
+        // Persists user data across browser sessions
+        // ========================================
+        function loadSavedData() {
+            const savedFlashcards = localStorage.getItem('l3_flashcards');
+            if (savedFlashcards) {
+                try {
+                    flashcards = JSON.parse(savedFlashcards);
+                } catch(e) { 
+                    flashcards = []; 
+                }
+            }
+            
+            const savedQuiz = localStorage.getItem('l3_quiz');
+            if (savedQuiz) {
+                try {
+                    currentQuiz = JSON.parse(savedQuiz);
+                } catch(e) { 
+                    currentQuiz = []; 
+                }
+            }
+            
+            if (currentNotes) {
+                const notesInput = document.getElementById('notesInput');
+                if (notesInput) notesInput.value = currentNotes;
+            }
+        }
+
+        // ========================================
+        // GENERATE FLASHCARDS FROM TEXT
+        // Extracts Q&A pairs from notes or exam content
+        // ========================================
+        function generateFlashcards(text) {
+            // Validation: Check if text is provided
+            if (!text || !text.trim()) {
+                alert(currentLang === 'en' ? 'Please add some notes or paste exam content first!' : 'Ongeraho inoti cyangwa ibizamini mbere!');
+                return [];
+            }
+            
+            const flashcards_array = [];
+            const lines = text.split('\n').filter(line => line.trim().length > 8);
+            
+            // Process each line to extract meaningful Q&A pairs
+            for (let i = 0; i < Math.min(lines.length, 15); i++) {
+                let line = lines[i].trim();
+                
+                if (line.length < 10) continue;
+                
+                // Case 1: Line contains a question mark
+                if (line.includes('?')) {
+                    flashcards_array.push({
+                        question: line,
+                        answer: currentLang === 'en' ? "Check your notes for the answer" : "Rebaza inoti zawe"
+                    });
+                }
+                // Case 2: Numbered list item (e.g., "1. Content")
+                else if (line.match(/^\d+\./)) {
+                    let parts = line.split(/\.\s+/);
+                    if (parts.length >= 2) {
+                        flashcards_array.push({
+                            question: currentLang === 'en' ? `What is ${parts[0]}?` : `${parts[0]} ni iki?`,
+                            answer: parts.slice(1).join('. ')
+                        });
+                    }
+                }
+                // Case 3: Line contains a colon (definition style)
+                else if (line.includes(':')) {
+                    let parts = line.split(':');
+                    if (parts.length >= 2) {
+                        flashcards_array.push({
+                            question: currentLang === 'en' ? `What is ${parts[0]}?` : `${parts[0]} ni iki?`,
+                            answer: parts.slice(1).join(':').trim()
+                        });
+                    }
+                }
+                // Case 4: Regular statement (convert to Q&A)
+                else if (line.length > 15) {
+                    flashcards_array.push({
+                        question: currentLang === 'en' ? `Explain: ${line.substring(0, 60)}${line.length > 60 ? '...' : ''}` : `Sobanura: ${line.substring(0, 60)}${line.length > 60 ? '...' : ''}`,
+                        answer: line
+                    });
+                }
+            }
+            
+            // Default flashcards if none were generated
+            if (flashcards_array.length === 0) {
+                flashcards_array.push(
+                    { question: "What is the capital of Rwanda?", answer: "Kigali" },
+                    { question: "When did Rwanda gain independence?", answer: "1962" },
+                    { question: "What are the three branches of government?", answer: "Executive, Legislative, Judiciary" },
+                    { question: "Name two major exports of Rwanda", answer: "Coffee and Tea" },
+                    { question: "What is the official currency of Rwanda?", answer: "Rwandan Franc (RWF)" }
+                );
+            }
+            
+            return flashcards_array;
+        }
+
+        // ========================================
+        // GENERATE QUIZ QUESTIONS FROM TEXT
+        // Creates multiple-choice questions from content
+        // ========================================
+        function generateQuiz(text) {
+            if (!text || !text.trim()) {
+                alert(currentLang === 'en' ? 'Please add some notes or paste exam content first!' : 'Ongeraho inoti cyangwa ibizamini mbere!');
+                return [];
+            }
+            
+            const quiz_array = [];
+            const lines = text.split('\n').filter(line => line.trim().length > 15);
+            
+            for (let i = 0; i < Math.min(lines.length, 10); i++) {
+                let line = lines[i].trim();
+                
+                if (line.includes('?')) {
+                    // Question already exists
+                    quiz_array.push({
+                        id: i,
+                        question: line,
+                        options: [
+                            "A) Based on your study materials",
+                            "B) Alternative answer",
+                            "C) Another possibility", 
+                            "D) Different choice"
+                        ],
+                        correct: 0,
+                        explanation: currentLang === 'en' ? "Review your notes for the complete answer." : "Suzuma inoti zawe kugirango ubone igisubizo cyuzuye."
+                    });
+                } else if (line.length > 20) {
+                    // Convert statement to question
+                    const keywords = line.split(' ').slice(0, 5).join(' ');
+                    quiz_array.push({
+                        id: i,
+                        question: currentLang === 'en' ? `What do you know about: ${keywords}...?` : `Umenye iki kuri: ${keywords}...?`,
+                        options: [
+                            `A) ${line.substring(0, 50)}`,
+                            "B) This information is not in the notes",
+                            "C) The opposite is true",
+                            "D) A different fact entirely"
+                        ],
+                        correct: 0,
+                        explanation: currentLang === 'en' ? `The correct answer is based on your notes: ${line.substring(0, 100)}` : `Igisubizo gikwiye gishingiye ku noti zawe: ${line.substring(0, 100)}`
+                    });
+                }
+            }
+            
+            // Default quiz if none generated
+            if (quiz_array.length === 0) {
+                quiz_array.push(
+                    { 
+                        id: 0,
+                        question: "What is the capital of Rwanda?", 
+                        options: ["A) Kigali", "B) Butare", "C) Gisenyi", "D) Musanze"], 
+                        correct: 0,
+                        explanation: "Kigali is the capital and largest city of Rwanda, located in the center of the country."
+                    },
+                    { 
+                        id: 1,
+                        question: "Which year did Rwanda gain independence?", 
+                        options: ["A) 1962", "B) 1975", "C) 1950", "D) 1980"], 
+                        correct: 0,
+                        explanation: "Rwanda gained independence from Belgium on July 1, 1962."
+                    },
+                    { 
+                        id: 2,
+                        question: "Lake Kivu is located between which two countries?", 
+                        options: ["A) Rwanda and Uganda", "B) Rwanda and Burundi", "C) Rwanda and DRC", "D) Rwanda and Tanzania"], 
+                        correct: 2,
+                        explanation: "Lake Kivu is situated on the border between Rwanda and the Democratic Republic of Congo (DRC)."
+                    },
+                    { 
+                        id: 3,
+                        question: "What is the main export crop of Rwanda?", 
+                        options: ["A) Wheat", "B) Coffee", "C) Corn", "D) Rice"], 
+                        correct: 1,
+                        explanation: "Coffee is one of Rwanda's main export crops, along with tea."
+                    }
+                );
+            }
+            
+            return quiz_array;
+        }
+
+        // ========================================
+        // RENDER FLASHCARDS TO DOM
+        // Displays all flashcards with flip functionality
+        // ========================================
+        function renderFlashcards() {
+            const container = document.getElementById('flashcardsContainer');
+            if (!container) return;
+            
+            if (!flashcards || flashcards.length === 0) {
+                container.innerHTML = `<div class="info-text">${currentLang === 'en' ? '📌 No flashcards yet. Go to Notes tab and click "Make Flashcards"' : '📌 Nta makarita yabonetse. Kanda "Make Flashcards" mu gice cy\'Inoti'}</div>`;
+                return;
+            }
+            
+            let html = '<div class="flashcard-list">';
+            flashcards.forEach((card, idx) => {
+                html += `
+                    <div class="flashcard" onclick="toggleCard(${idx})">
+                        <div id="card-content-${idx}">
+                            <div class="card-question">❓ ${escapeHtml(card.question)}</div>
+                            <div class="card-answer" style="display: none;">✓ ${escapeHtml(card.answer)}</div>
+                        </div>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
+        // ========================================
+        // TOGGLE FLASHCARD (Flip between Q & A)
+        // Global function called by onclick
+        // ========================================
+        window.toggleCard = function(idx) {
+            const questionDiv = document.querySelector(`#card-content-${idx} .card-question`);
+            const answerDiv = document.querySelector(`#card-content-${idx} .card-answer`);
+            if (questionDiv && answerDiv) {
+                if (answerDiv.style.display === 'none') {
+                    questionDiv.style.display = 'none';
+                    answerDiv.style.display = 'block';
+                } else {
+                    questionDiv.style.display = 'block';
+                    answerDiv.style.display = 'none';
+                }
+            }
+        };
+
+        // ========================================
+        // RENDER QUIZ TO DOM
+        // Displays questions based on current mode
+        // ========================================
+        function renderQuiz() {
+            const container = document.getElementById('quizContainer');
+            const submitBtn = document.getElementById('submitQuizBtn');
+            const statsDiv = document.getElementById('quizStats');
+            
+            if (!container) return;
+            
+            // Determine which questions to show based on mode
+            let questionsToShow = [];
+            if (quizMode === 'review' && wrongQuestions.length > 0) {
+                questionsToShow = wrongQuestions.map(idx => currentQuiz[idx]);
+            } else {
+                questionsToShow = quizMode === 'random' ? [...currentQuiz].sort(() => Math.random() - 0.5) : currentQuiz;
+            }
+            
+            if (!currentQuiz || currentQuiz.length === 0) {
+                container.innerHTML = `<div class="info-text">${currentLang === 'en' ? '📌 No quiz yet. Go to Notes tab and click "Make Smart Quiz"' : '📌 Nta kizamini gihari. Kanda "Make Smart Quiz" mu gice cy\'Inoti'}</div>`;
+                if (submitBtn) submitBtn.style.display = 'none';
+                if (statsDiv) statsDiv.innerHTML = 'Questions: 0';
+                return;
+            }
+            
+            if (submitBtn) submitBtn.style.display = 'block';
+            if (statsDiv) statsDiv.innerHTML = `Questions: ${questionsToShow.length}`;
+            
+            let html = '<div class="quiz-list">';
+            questionsToShow.forEach((q, displayIdx) => {
+                const originalIdx = currentQuiz.findIndex(quiz => quiz.id === q.id);
+                html += `
+                    <div class="quiz-question" data-qid="${q.id}" data-original-idx="${originalIdx}">
+                        <h3><strong>${displayIdx + 1}.</strong> ${escapeHtml(q.question)}</h3>
+                `;
+                q.options.forEach((opt, optIdx) => {
+                    const isSelected = userAnswers[q.id] === optIdx;
+                    const isSubmitted = quizSubmitted;
+                    const isCorrect = isSubmitted && optIdx === q.correct;
+                    const isWrong = isSubmitted && isSelected && optIdx !== q.correct;
+                    
+                    let extraClass = '';
+                    if (isSubmitted && isCorrect) extraClass = 'correct-answer';
+                    if (isSubmitted && isWrong) extraClass = 'wrong-answer';
+                    if (isSelected && !isSubmitted) extraClass = 'selected';
+                    
+                    html += `
+                        <div class="quiz-option ${extraClass}" data-qid="${q.id}" data-opt="${optIdx}">
+                            ${escapeHtml(opt)}
+                        </div>
+                    `;
+                });
+                
+                // Add explanation if submitted and answer is wrong
+                if (quizSubmitted && userAnswers[q.id] !== undefined && userAnswers[q.id] !== q.correct) {
+                    html += `
+                        <div class="explanation-box" style="display: block;">
+                            💡 <strong>Explanation:</strong> ${escapeHtml(q.explanation || 'Review your notes for the correct answer.')}
+                        </div>
+                    `;
+                } else {
+                    html += `<div class="explanation-box" data-explanation="${q.id}"></div>`;
+                }
+                
+                html += `</div>`;
+            });
+            html += '</div>';
+            container.innerHTML = html;
+            
+            // Add click handlers for options (only if not submitted)
+            if (!quizSubmitted) {
+                document.querySelectorAll('.quiz-option').forEach(opt => {
+                    opt.addEventListener('click', function() {
+                        const qid = parseInt(this.dataset.qid);
+                        const optIdx = parseInt(this.dataset.opt);
+                        
+                        // Remove selected class from same question
+                        document.querySelectorAll(`.quiz-question[data-qid="${qid}"] .quiz-option`).forEach(optEl => {
+                            optEl.classList.remove('selected');
+                        });
+                        this.classList.add('selected');
+                        userAnswers[qid] = optIdx;
+                    });
+                });
+            }
+        }
+
+        // ========================================
+        // SUBMIT QUIZ & CALCULATE SCORE
+        // Grades answers and tracks wrong questions
+        // ========================================
+        function submitQuiz() {
+            if (!currentQuiz || currentQuiz.length === 0) {
+                alert(currentLang === 'en' ? 'No quiz available! Generate one first.' : 'Nta kizamini gihari! Kora kimwe mbere.');
+                return;
+            }
+            
+            let score = 0;
+            wrongQuestions = [];
+            
+            // Calculate score and track wrong answers
+            currentQuiz.forEach((q, idx) => {
+                if (userAnswers[q.id] === q.correct) {
+                    score++;
+                } else if (userAnswers[q.id] !== undefined) {
+                    wrongQuestions.push(q.id);
+                }
+            });
+            
+            const total = currentQuiz.length;
+            const percentage = (score / total) * 100;
+            
+            // Determine grade message
+            let grade = '';
+            let resultClass = '';
+            if (percentage >= 80) {
+                grade = currentLang === 'en' ? 'Excellent! 🎉' : 'Umutiyemeriye! 🎉';
+                resultClass = 'success';
+            } else if (percentage >= 60) {
+                grade = currentLang === 'en' ? 'Good job! 👍' : 'Ukoze neza! 👍';
+                resultClass = 'success';
+            } else if (percentage >= 40) {
+                grade = currentLang === 'en' ? 'Keep studying! 📚' : 'Komeza kwiga! 📚';
+                resultClass = 'info';
+            } else {
+                grade = currentLang === 'en' ? 'Review your notes again 💪' : 'Ongera usubire inoti zawe 💪';
+                resultClass = 'fail';
+            }
+            
+            // Display results
+            const resultDiv = document.getElementById('quizResult');
+            if (resultDiv) {
+                resultDiv.className = `quiz-result ${resultClass}`;
+                resultDiv.innerHTML = `
+                    <strong>${currentLang === 'en' ? 'Score' : 'Amanota'}: ${score}/${total} (${Math.round(percentage)}%)</strong><br>
+                    ${grade}<br>
+                    ${wrongQuestions.length > 0 ? `📝 ${wrongQuestions.length} question(s) to review.` : '🎯 Perfect! All answers correct!'}
+                `;
+                resultDiv.style.display = 'block';
+            }
+            
+            quizSubmitted = true;
+            
+            // Show/hide relevant buttons
+            document.getElementById('showExplanationsBtn').style.display = 'block';
+            if (wrongQuestions.length > 0) {
+                document.getElementById('retryWrongBtn').style.display = 'block';
+            }
+            document.getElementById('resetQuizBtn').style.display = 'block';
+            document.getElementById('submitQuizBtn').style.display = 'none';
+            
+            // Re-render to show correct/wrong answers
+            renderQuiz();
+        }
+
+        // ========================================
+        // SHOW EXPLANATIONS FOR ALL QUESTIONS
+        // Displays helpful explanations
+        // ========================================
+        function showExplanations() {
+            document.querySelectorAll('.explanation-box').forEach(box => {
+                box.style.display = 'block';
+            });
+        }
+
+        // ========================================
+        // RETRY ONLY WRONG ANSWERS
+        // Creates a new quiz with incorrect questions
+        // ========================================
+        function retryWrongAnswers() {
+            if (wrongQuestions.length === 0) {
+                alert(currentLang === 'en' ? 'No wrong answers to review!' : 'Nta bisubizo bibi byo gusubiramo!');
+                return;
+            }
+            
+            quizMode = 'review';
+            quizSubmitted = false;
+            userAnswers = {};
+            renderQuiz();
+            
+            // Update button visibility
+            document.getElementById('submitQuizBtn').style.display = 'block';
+            document.getElementById('showExplanationsBtn').style.display = 'none';
+            document.getElementById('retryWrongBtn').style.display = 'none';
+            document.getElementById('resetQuizBtn').style.display = 'block';
+            
+            const resultDiv = document.getElementById('quizResult');
+            if (resultDiv) resultDiv.style.display = 'none';
+        }
+
+        // ========================================
+        // RESET QUIZ (Clear answers)
+        // Allows user to retake the quiz
+        // ========================================
+        function resetQuiz() {
+            quizSubmitted = false;
+            userAnswers = {};
+            wrongQuestions = [];
+            renderQuiz();
+            
+            document.getElementById('submitQuizBtn').style.display = 'block';
+            document.getElementById('showExplanationsBtn').style.display = 'none';
+            document.getElementById('retryWrongBtn').style.display = 'none';
+            
+            const resultDiv = document.getElementById('quizResult');
+            if (resultDiv) resultDiv.style.display = 'none';
+        }
+
+        // ========================================
+        // STANDARD QUIZ MODE
+        // Shows questions in original order
+        // ========================================
+        function standardQuiz() {
+            quizMode = 'standard';
+            quizSubmitted = false;
+            userAnswers = {};
+            wrongQuestions = [];
+            renderQuiz();
+            document.getElementById('submitQuizBtn').style.display = 'block';
+            document.getElementById('showExplanationsBtn').style.display = 'none';
+            document.getElementById('retryWrongBtn').style.display = 'none';
+            const resultDiv = document.getElementById('quizResult');
+            if (resultDiv) resultDiv.style.display = 'none';
+        }
+
+        // ========================================
+        // RANDOM QUIZ MODE
+        // Shuffles question order
+        // ========================================
+        function randomQuiz() {
+            quizMode = 'random';
+            quizSubmitted = false;
+            userAnswers = {};
+            wrongQuestions = [];
+            renderQuiz();
+            document.getElementById('submitQuizBtn').style.display = 'block';
+            document.getElementById('showExplanationsBtn').style.display = 'none';
+            document.getElementById('retryWrongBtn').style.display = 'none';
+            const resultDiv = document.getElementById('quizResult');
+            if (resultDiv) resultDiv.style.display = 'none';
+        }
+
+        // ========================================
+        // HELPER: ESCAPE HTML
+        // Prevents XSS attacks and displays special characters
+        // ========================================
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+
+        // ========================================
+        // PROCESS PAST PAPER CONTENT
+        // Generates flashcards and quiz from exam text
+        // ========================================
+        function processPastPaper() {
+            const pastPaperTextarea = document.getElementById('pastPaperText');
+            let content = '';
+            
+            if (pastPaperTextarea && pastPaperTextarea.value.trim()) {
+                content = pastPaperTextarea.value;
+            }
+            
+            if (!content) {
+                alert(currentLang === 'en' ? 'Please paste exam questions in the box above first!' : 'Ongeraho ibibazo by\'ikizamini mu gasanduku ko hejuru mbere!');
+                return;
+            }
+            
+            // Generate study materials
+            flashcards = generateFlashcards(content);
+            currentQuiz = generateQuiz(content);
+            
+            // Save to localStorage
+            localStorage.setItem('l3_flashcards', JSON.stringify(flashcards));
+            localStorage.setItem('l3_quiz', JSON.stringify(currentQuiz));
+            
+            // Reset quiz state
+            quizSubmitted = false;
+            userAnswers = {};
+            wrongQuestions = [];
+            quizMode = 'standard';
+            
+            // Show preview
+            const previewArea = document.getElementById('previewArea');
+            if (previewArea) {
+                previewArea.style.display = 'block';
+                previewArea.innerHTML = `<strong>📖 Content processed:</strong><br>${escapeHtml(content.substring(0, 200))}${content.length > 200 ? '...' : ''}`;
+            }
+            
+            // Show success message
+            const successArea = document.getElementById('successArea');
+            if (successArea) {
+                successArea.style.display = 'block';
+                successArea.innerHTML = `✅ <strong>Success!</strong> Generated ${flashcards.length} flashcards and ${currentQuiz.length} quiz questions!<br><br>👉 Go to <strong>Flashcards</strong> tab to study<br>👉 Go to <strong>Quiz</strong> tab to test yourself`;
+                
+                // Auto-hide after 5 seconds
+                setTimeout(() => {
+                    successArea.style.display = 'none';
+                }, 5000);
+            }
+            
+            // Refresh displays
+            renderFlashcards();
+            renderQuiz();
+        }
+
+        // ========================================
+        // SETUP FILE UPLOAD FUNCTIONALITY
+        // Handles .txt file uploads
+        // ========================================
+        function setupFileUpload() {
+            const uploadArea = document.getElementById('uploadArea');
+            const fileInput = document.getElementById('fileInput');
+            const fileNameDisplay = document.getElementById('fileNameDisplay');
+            const pastPaperTextarea = document.getElementById('pastPaperText');
+            
+            if (uploadArea) {
+                uploadArea.addEventListener('click', () => {
+                    if (fileInput) fileInput.click();
+                });
+            }
+            
+            if (fileInput) {
+                fileInput.addEventListener('change', (e) => {
+                    const file = e.target.files[0];
+                    if (file && file.name.endsWith('.txt')) {
+                        const reader = new FileReader();
+                        reader.onload = function(event) {
+                            const content = event.target.result;
+                            if (pastPaperTextarea) {
+                                pastPaperTextarea.value = content;
+                            }
+                            if (fileNameDisplay) {
+                                fileNameDisplay.style.display = 'block';
+                                fileNameDisplay.innerHTML = `📄 Loaded: ${file.name}`;
+                                setTimeout(() => {
+                                    fileNameDisplay.style.display = 'none';
+                                }, 3000);
+                            }
+                        };
+                        reader.readAsText(file, 'UTF-8');
+                    } else if (file) {
+                        alert(currentLang === 'en' ? 'Please use .txt files. You can copy-paste the exam text instead.' : 'Koresha dosiye .txt. Ushobora gukoporora ibizamini mu gice cyo gushyiramo.');
+                    }
+                });
+            }
+        }
+
+        // ========================================
+        // SETUP TAB NAVIGATION
+        // Handles switching between different sections
+        // ========================================
+        function setupTabs() {
+            const tabs = document.querySelectorAll('.tab-btn');
+            const panels = document.querySelectorAll('.panel');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.getAttribute('data-tab');
+                    
+                    // Update active states
+                    tabs.forEach(t => t.classList.remove('active'));
+                    panels.forEach(p => p.classList.remove('active'));
+                    
+                    tab.classList.add('active');
+                    
+                    const activePanel = document.getElementById(`${tabId}-panel`);
+                    if (activePanel) {
+                        activePanel.classList.add('active');
+                    }
+                    
+                    // Refresh content when switching tabs
+                    if (tabId === 'flashcards') {
+                        renderFlashcards();
+                    } else if (tabId === 'quiz') {
+                        renderQuiz();
+                    }
+                });
+            });
+        }
+
+        // ========================================
+        // MAIN INITIALIZATION
+        // Sets up all event listeners and loads data
+        // ========================================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load saved data from localStorage
+            loadSavedData();
+            
+            // Render initial content
+            renderFlashcards();
+            renderQuiz();
+            
+            // ===== NOTES SECTION BUTTONS =====
+            const saveNotesBtn = document.getElementById('saveNotesBtn');
+            if (saveNotesBtn) {
+                saveNotesBtn.addEventListener('click', () => {
+                    const notesInput = document.getElementById('notesInput');
+                    if (notesInput) {
+                        currentNotes = notesInput.value;
+                        localStorage.setItem('l3_notes', currentNotes);
+                        const saveConfirm = document.getElementById('saveConfirm');
+                        if (saveConfirm) {
+                            saveConfirm.style.display = 'block';
+                            setTimeout(() => {
+                                saveConfirm.style.display = 'none';
+                            }, 2000);
+                        }
+                    }
+                });
+            }
+            
+            const generateFlashcardsBtn = document.getElementById('generateFlashcardsBtn');
+            if (generateFlashcardsBtn) {
+                generateFlashcardsBtn.addEventListener('click', () => {
+                    const notesInput = document.getElementById('notesInput');
+                    if (notesInput) {
+                        flashcards = generateFlashcards(notesInput.value);
+                        localStorage.setItem('l3_flashcards', JSON.stringify(flashcards));
+                        renderFlashcards();
+                        alert(`${currentLang === 'en' ? '✅ Created' : '✅ Byakozwe'} ${flashcards.length} ${currentLang === 'en' ? 'flashcards' : 'makarita'}! ${currentLang === 'en' ? 'Go to Flashcards tab to study.' : 'Jya mu makarita kugirango wige.'}`);
+                    }
+                });
+            }
+            
+            const generateQuizBtn = document.getElementById('generateQuizBtn');
+            if (generateQuizBtn) {
+                generateQuizBtn.addEventListener('click', () => {
+                    const notesInput = document.getElementById('notesInput');
+                    if (notesInput) {
+                        currentQuiz = generateQuiz(notesInput.value);
+                        localStorage.setItem('l3_quiz', JSON.stringify(currentQuiz));
+                        userAnswers = {};
+                        quizSubmitted = false;
+                        wrongQuestions = [];
+                        quizMode = 'standard';
+                        renderQuiz();
+                        const quizResult = document.getElementById('quizResult');
+                        if (quizResult) quizResult.style.display = 'none';
+                        alert(`${currentLang === 'en' ? '✅ Created' : '✅ Byakozwe'} ${currentQuiz.length} ${currentLang === 'en' ? 'quiz questions' : 'ibibazo by\'ikizamini'}! ${currentLang === 'en' ? 'Go to Quiz tab to test yourself.' : 'Jya mu kizamini kugirango wikemenge.'}`);
+                    }
+                });
+            }
+            
+            // ===== QUIZ SECTION BUTTONS =====
+            const submitQuizBtn = document.getElementById('submitQuizBtn');
+            if (submitQuizBtn) {
+                submitQuizBtn.addEventListener('click', submitQuiz);
+            }
+            
+            const showExplanationsBtn = document.getElementById('showExplanationsBtn');
+            if (showExplanationsBtn) {
+                showExplanationsBtn.addEventListener('click', showExplanations);
+            }
+            
+            const retryWrongBtn = document.getElementById('retryWrongBtn');
+            if (retryWrongBtn) {
+                retryWrongBtn.addEventListener('click', retryWrongAnswers);
+            }
+            
+            const resetQuizBtn = document.getElementById('resetQuizBtn');
+            if (resetQuizBtn) {
+                resetQuizBtn.addEventListener('click', resetQuiz);
+            }
+            
+            const standardQuizBtn = document.getElementById('standardQuizBtn');
+            if (standardQuizBtn) {
+                standardQuizBtn.addEventListener('click', standardQuiz);
+            }
+            
+            const randomQuizBtn = document.getElementById('randomQuizBtn');
+            if (randomQuizBtn) {
+                randomQuizBtn.addEventListener('click', randomQuiz);
+            }
+            
+            // ===== FLASHCARDS SECTION BUTTONS =====
+            const resetFlashcardsBtn = document.getElementById('resetFlashcardsBtn');
+            if (resetFlashcardsBtn) {
+                resetFlashcardsBtn.addEventListener('click', () => {
+                    if (confirm(currentLang === 'en' ? 'Delete all flashcards?' : 'Gusiba amakarita yose?')) {
+                        flashcards = [];
+                        localStorage.removeItem('l3_flashcards');
+                        renderFlashcards();
+                    }
+                });
+            }
+            
+            // ===== PAST PAPER SECTION BUTTONS =====
+            const processBtn = document.getElementById('processPastPaperBtn');
+            if (processBtn) {
+                processBtn.addEventListener('click', processPastPaper);
+            }
+            
+            // Setup file upload
+            setupFileUpload();
+            
+            // Setup tab navigation
+            setupTabs();
+            
+            // ===== LANGUAGE TOGGLE =====
+            const langBtns = document.querySelectorAll('.lang-btn');
+            langBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    currentLang = btn.getAttribute('data-lang');
+                    langBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    updateLanguage();
+                });
+            });
+            
+            // Initial language update
+            updateLanguage();
+        });
+    </script>
 </body>
 </html>
