@@ -1,0 +1,549 @@
+/* =========================
+   GLOBAL RESET
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+/* =========================
+   BACKGROUND (MODERN GRADIENT)
+========================= */
+body {
+    min-height: 100vh;
+    background: radial-gradient(circle at top, #1e3a8a, #0f172a);
+    color: white;
+    padding: 20px;
+}
+
+/* =========================
+   LANGUAGE TOGGLE
+========================= */
+.lang-toggle {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.lang-btn {
+    padding: 10px 16px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    background: rgba(255,255,255,0.1);
+    color: white;
+    transition: 0.3s;
+    backdrop-filter: blur(10px);
+}
+
+.lang-btn:hover,
+.lang-btn.active {
+    background: #38bdf8;
+    color: #0f172a;
+}
+
+/* =========================
+   MAIN CONTAINER (GLASS EFFECT)
+========================= */
+.container {
+    max-width: 1150px;
+    margin: auto;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(20px);
+    border-radius: 25px;
+    padding: 30px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+}
+
+/* =========================
+   HEADER
+========================= */
+.header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.header h1 {
+    font-size: 3rem;
+    background: linear-gradient(90deg, #38bdf8, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.header p {
+    color: #cbd5e1;
+    margin-top: 8px;
+}
+
+/* =========================
+   TABS (MODERN CARDS)
+========================= */
+.tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.tab-btn {
+    padding: 14px 20px;
+    border-radius: 15px;
+    border: none;
+    cursor: pointer;
+    background: rgba(255,255,255,0.1);
+    color: white;
+    transition: 0.3s;
+    font-weight: bold;
+    backdrop-filter: blur(10px);
+}
+
+.tab-btn:hover {
+    transform: translateY(-4px);
+    background: #38bdf8;
+    color: #0f172a;
+}
+
+.tab-btn.active {
+    background: #6366f1;
+}
+
+/* =========================
+   PANELS (CARD DESIGN)
+========================= */
+.panel {
+    display: none;
+    background: white;
+    color: #0f172a;
+    border-radius: 20px;
+    padding: 25px;
+    animation: fadeUp 0.4s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.panel.active {
+    display: block;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================
+   HEADINGS
+========================= */
+h2 {
+    color: #1e3a8a;
+    margin-bottom: 12px;
+}
+
+/* =========================
+   TEXTAREA
+========================= */
+textarea {
+    width: 100%;
+    min-height: 180px;
+    padding: 15px;
+    border-radius: 15px;
+    border: 2px solid #e2e8f0;
+    outline: none;
+    transition: 0.3s;
+}
+
+textarea:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 10px rgba(99,102,241,0.3);
+}
+
+/* =========================
+   BUTTONS (MODERN LOOK)
+========================= */
+.btn {
+    padding: 12px 18px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    margin: 6px;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+.btn-blue { background: #2563eb; }
+.btn-green { background: #16a34a; }
+.btn-orange { background: #f97316; }
+.btn-red { background: #ef4444; }
+.btn-purple { background: #8b5cf6; }
+
+/* =========================
+   FLASHCARDS (CARD GRID)
+========================= */
+#flashcardsContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.flashcard {
+    position: relative;
+    perspective: 900px;
+    min-height: 120px;
+}
+
+.flashcard-inner {
+    position: relative;
+    width: 100%;
+    min-height: 120px;
+    border-radius: 16px;
+    transition: transform 0.6s cubic-bezier(.2,.8,.2,1), box-shadow 0.25s ease;
+    transform-style: preserve-3d;
+    box-shadow: 0 10px 26px rgba(0,0,0,0.12);
+    cursor: pointer;
+}
+
+.flashcard:hover .flashcard-inner {
+    transform: translateY(-3px) rotateX(6deg) rotateY(-6deg);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.18);
+}
+
+.flashcard.revealed .flashcard-inner {
+    transform: rotateY(180deg);
+}
+
+.flashcard-front,
+.flashcard-back {
+    position: absolute;
+    inset: 0;
+    padding: 18px;
+    border-radius: 16px;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: 800;
+    line-height: 1.35;
+}
+
+.flashcard-front {
+    background: linear-gradient(135deg, rgba(219,234,254,0.95), rgba(237,233,254,0.92));
+    color: #0f172a;
+}
+
+.flashcard-back {
+    background: linear-gradient(135deg, rgba(199,210,254,0.95), rgba(196,181,253,0.92));
+    color: #0b1226;
+    transform: rotateY(180deg);
+}
+
+/* Quiz UI */
+#quizContainer .quiz-card {
+    margin-top: 14px;
+    background: rgba(255,255,255,0.92);
+    color: #0f172a;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 14px 40px rgba(0,0,0,0.18);
+}
+
+.quiz-q {
+    font-weight: 900;
+    margin-bottom: 10px;
+}
+
+.quiz-options {
+    display: grid;
+    gap: 10px;
+}
+
+.quiz-option {
+    border: 1px solid rgba(15, 23, 42, 0.14);
+    border-radius: 12px;
+    padding: 12px 12px;
+    background: rgba(226,232,240,0.55);
+    font-weight: 800;
+    cursor: pointer;
+    transition: 0.15s ease;
+    text-align: left;
+}
+
+.quiz-option:hover {
+    transform: translateY(-2px);
+    background: rgba(56, 189, 248, 0.14);
+}
+
+.quiz-option.selected {
+    outline: 2px solid rgba(59, 130, 246, 0.45);
+}
+
+.quiz-option.correct {
+    background: rgba(34, 197, 94, 0.18);
+    border-color: rgba(34, 197, 94, 0.55);
+}
+
+.quiz-option.wrong {
+    background: rgba(239, 68, 68, 0.16);
+    border-color: rgba(239, 68, 68, 0.55);
+}
+
+.quiz-footer {
+    margin-top: 12px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.quiz-result {
+    margin-top: 15px;
+    padding: 15px;
+    border-radius: 12px;
+    background: rgba(56, 189, 248, 0.14);
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    color: #0f172a;
+    font-weight: 900;
+}
+
+/* Loading / empty states */
+.state-card {
+    margin-top: 15px;
+    border-radius: 16px;
+    padding: 16px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.92);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.state-sub {
+    font-weight: 700;
+    color: rgba(203, 213, 225, 0.95);
+}
+
+.spinner {
+    width: 18px;
+    height: 18px;
+    border-radius: 999px;
+    border: 3px solid rgba(255,255,255,0.25);
+    border-top-color: rgba(45, 212, 191, 0.95);
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Human indicator */
+.human-indicator {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    z-index: 999;
+    padding: 10px 12px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.10);
+    border: 1px solid rgba(255,255,255,0.16);
+    backdrop-filter: blur(10px);
+    color: rgba(255,255,255,0.92);
+    font-weight: 900;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.human-indicator .dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #22c55e;
+    box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.18);
+} 
+
+
+/* =========================
+   QUIZ BOX
+========================= */
+.quiz-result {
+    margin-top: 15px;
+    padding: 15px;
+    border-radius: 12px;
+    background: #dbeafe;
+    color: #1e3a8a;
+}
+
+/* =========================
+   UPLOAD AREA
+========================= */
+.upload-area {
+    border: 2px dashed #6366f1;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.upload-area:hover {
+    background: #eef2ff;
+}
+
+/* =========================
+   MOBILE FRIENDLY
+========================= */
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: 2rem;
+    }
+
+    .tabs {
+        flex-direction: column;
+    }
+
+    .tab-btn {
+        width: 100%;
+    }
+}
+
+
+
+
+
+/* TOP BAR */
+.topbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 15px 25px;
+    background: rgba(0,0,0,0.35);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+/* SMALL BUTTONS */
+.btn-small {
+    padding: 8px 14px;
+    background: white;
+    color: black;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.btn-green {
+    background: #22c55e;
+    color: white;
+}
+
+/* HERO SECTION */
+.hero {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    padding-top: 60px;
+}
+
+/* HERO CARD */
+.hero-card {
+    max-width: 700px;
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 18px;
+    opacity: 0.9;
+}
+
+/* HERO BUTTONS */
+.hero-buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+/* MAIN BUTTON */
+.btn-main {
+    padding: 12px 20px;
+    background: #2dd4bf; /* softer/less “AI” neon */
+    color: rgba(6, 16, 40, 0.95);
+    border: 1px solid rgba(45, 212, 191, 0.45);
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 800;
+    cursor: pointer;
+    transition: 0.18s ease;
+    box-shadow: 0 10px 25px rgba(45, 212, 191, 0.18);
+}
+
+.btn-main:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 35px rgba(45, 212, 191, 0.26);
+}
+
+.btn-main:active {
+    transform: translateY(0px) scale(0.98);
+}
+
+.btn-main:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+} 
+
+
+/* OUTLINE BUTTON */
+.btn-outline {
+    padding: 12px 20px;
+    border: 2px solid white;
+    color: white;
+    border-radius: 10px;
+    text-decoration: none;
+}
+
+/* FEATURES */
+.features {
+    position: absolute;
+    bottom: 40px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.feature-card {
+    background: rgba(255,255,255,0.15);
+    padding: 12px 18px;
+    border-radius: 12px;
+    color: white;
+    backdrop-filter: blur(10px);
+}
