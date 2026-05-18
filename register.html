@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+
+    <link rel="stylesheet" href="login-register.css">
+    <script src="login-register.js" defer></script>
+</head>
+<body>
+
+<section class="form-card">
+    <h1 id="title">Register Form</h1>
+
+    <label id="langLabel">Language</label>
+    <select onchange="changeLanguage(this.value)">
+        <option value="en">English</option>
+        <option value="fr">Français</option>
+        <option value="rw">Kinyarwanda</option>
+    </select>
+
+    <form>
+        <label id="nameLabel">Full Name</label>
+        <input type="text">
+
+        <label id="emailLabel">Email</label>
+        <input type="email">
+
+        <label id="passwordLabel">Password</label>
+        <input type="password">
+
+        <button id="mainButton">Register</button>
+    </form>
+
+    <p id="switchText">
+        Already have an account?
+        <a href="login.html">Login</a>
+    </p>
+</section>
+
+</body>
+</html>
