@@ -1,0 +1,166 @@
+/* Reset default browser spacing */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Page background */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #0f172a, #1e3a8a, #3b82f6);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Main form card */
+.form-card {
+    width: 420px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+    border: 1px solid rgba(255,255,255,0.2);
+    animation: slideUp 0.8s ease;
+}
+
+/* Animation when page loads */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Logo section */
+.form-card::before {
+    content: "📘 E-Learning";
+    display: block;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 20px;
+}
+
+/* Title */
+h1 {
+    text-align: center;
+    color: white;
+    margin-bottom: 25px;
+    font-size: 28px;
+}
+
+/* Labels */
+label {
+    display: block;
+    color: white;
+    margin: 12px 0 6px;
+    font-size: 14px;
+}
+
+/* Inputs and select */
+input,
+select {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    font-size: 15px;
+    outline: none;
+    background: rgba(255,255,255,0.9);
+}
+
+/* Input focus effect */
+input:focus,
+select:focus {
+    transform: scale(1.02);
+    transition: 0.3s;
+}
+
+/* Buttons layout */
+.role-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* Login main button */
+button {
+    width: 100%;
+    padding: 15px;
+    background: #2563eb;
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Admin small button */
+.btn-small {
+    width: auto;
+    padding: 12px 14px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.20);
+    border-radius: 12px;
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-small:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(255,255,255,0.15);
+}
+
+
+/* Button hover */
+button:hover {
+    background: #1d4ed8;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(37,99,235,0.4);
+}
+
+/* Paragraph text */
+p {
+    text-align: center;
+    margin-top: 18px;
+    color: white;
+}
+
+/* Links */
+a {
+    color: #facc15;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Mobile responsive */
+@media (max-width: 500px) {
+    .form-card {
+        width: 90%;
+        padding: 25px;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+}
