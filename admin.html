@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="admin.css" />
+  <script src="admin.js" defer></script>
+</head>
+<body>
+
+  <div class="page">
+    <header class="topbar">
+      <div class="brand">
+        <span class="shield">🛡️</span>
+        <span><strong>Admin Dashboard</strong></span>
+      </div>
+
+      <div class="top-actions">
+        <a class="btn-small" href="course.html">Back to Course</a>
+      </div>
+    </header>
+
+    <!-- USER ADMIN LOGIN PANEL (admin login) -->
+    <section id="login-panel" class="panel">
+      <h1 class="title">Admin Login</h1>
+      <p class="subtitle">Approve or decline pending applications.</p>
+
+      <div id="admin-error" class="alert hidden" role="alert"></div>
+
+      <form id="admin-login-form" class="form" onsubmit="return false;">
+        <label for="admin-username">Username</label>
+        <input id="admin-username" autocomplete="username" type="text" />
+
+        <label for="admin-password">Password</label>
+        <input id="admin-password" autocomplete="current-password" type="password" />
+
+        <button type="submit" class="btn">Login as Admin</button>
+      </form>
+
+      <div class="hint">
+        <span class="hint-badge">Demo</span>
+        <span>Credentials are hardcoded in <code>admin.js</code>.</span>
+      </div>
+    </section>
+
+    <!-- ADMIN PANEL (applications table) -->
+    <section id="admin-panel" class="panel hidden">
+      <div class="panel-header">
+        <div>
+          <h1 class="title">Pending Applications</h1>
+          <p class="subtitle">Click Approve or Decline.</p>
+        </div>
+
+        <button id="admin-logout-btn" class="btn btn-secondary" type="button">Logout</button>
+      </div>
+
+      <div class="table-wrap">
+        <table class="table" aria-label="Applications pending review">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Requested Role</th>
+              <th>Submitted At</th>
+              <th class="right">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="apps-tbody"></tbody>
+        </table>
+      </div>
+
+      <div class="empty-actions">
+        <p class="muted">No extra settings. Actions update localStorage instantly.</p>
+      </div>
+    </section>
+
+  </div>
+
+</body>
+</html>
+

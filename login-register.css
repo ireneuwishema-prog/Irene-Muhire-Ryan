@@ -87,7 +87,14 @@ select:focus {
     transition: 0.3s;
 }
 
-/* Button */
+/* Buttons layout */
+.role-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* Login main button */
 button {
     width: 100%;
     padding: 15px;
@@ -100,6 +107,26 @@ button {
     cursor: pointer;
     transition: 0.3s;
 }
+
+/* Admin small button */
+.btn-small {
+    width: auto;
+    padding: 12px 14px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.20);
+    border-radius: 12px;
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-small:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(255,255,255,0.15);
+}
+
 
 /* Button hover */
 button:hover {

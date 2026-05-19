@@ -1,8 +1,5 @@
 // Function to change language
 function changeLanguage(lang) {
-
-
-
     const title = document.getElementById("title");
     const langLabel = document.getElementById("langLabel");
     const emailLabel = document.getElementById("emailLabel");
@@ -55,8 +52,9 @@ function changeLanguage(lang) {
     else {
         if (title) title.innerText = "Login Form";
         if (button) button.innerText = "Login";
-        if (switchText) switchText.innerHTML =
-            'I don\'t have an account? <a href="register.html">Register</a>';
+        if (switchText)
+            switchText.innerHTML =
+                'I don\'t have an account? <a href="register.html">Register</a>';
         if (nameLabel) nameLabel.innerText = "Full Name";
 
         if (langLabel) langLabel.innerText = "Language";
@@ -64,3 +62,11 @@ function changeLanguage(lang) {
         if (passwordLabel) passwordLabel.innerText = "Password";
     }
 }
+
+// Basic role navigation
+// - Regular login button goes to course.html (no auth implemented in this project)
+// - Admin login button goes to admin.html
+function handleLoginClick() {
+    window.location.href = "./course.html";
+}
+
