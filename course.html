@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>L3 Study Helper Pro | Rwanda Exam Prep</title>
+    <link rel="stylesheet" href="course.css">
+</head>
+<body>
+    <!-- Language Toggle -->
+    <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="rw">KIN</button>
+    </div>
+
+    <div class="topbar">
+        <div class="topbar-title">📚 L3 Study Helper Pro</div>
+        <button id="logoutBtn" class="btn-red">Logout</button>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🚀 L3 Study Helper Pro</h1>
+            <p>Upload books • Get summaries • Make flashcards • Take quizzes</p>
+        </div>
+
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab-btn" data-tab="book">📖 Book Upload</button>
+            <button class="tab-btn active" data-tab="notes">✏️ Notes</button>
+            <button class="tab-btn" data-tab="flashcards">🃏 Flashcards</button>
+            <button class="tab-btn" data-tab="quiz">✅ Smart Quiz</button>
+            <button class="tab-btn" data-tab="pastpaper">📄 Past Paper</button>
+        </div>
+
+        <!-- ========================================
+             BOOK UPLOAD & SUMMARIZER PANEL
+             ======================================== -->
+        <div class="panel" id="book-panel">
+            <h2>📖 Book & Document Summarizer</h2>
+            <p class="panel-desc">Upload any book, article, or document - Get instant summary, key points, flashcards & quiz!</p>
+            
+            <div class="book-upload-area" id="bookUploadArea">
+                <div class="book-icon">📚</div>
+                <div><strong>Click to upload a book or document</strong></div>
+                <div class="upload-hint">Supports .txt files (Copy-paste from PDF/Word)</div>
+                <input type="file" id="bookFileInput" accept=".txt" style="display: none;">
+            </div>
+            
+            <div class="input-group">
+                <label><strong>📝 Or paste your text here:</strong></label>
+                <textarea id="bookTextInput" rows="6" class="manual-textarea" placeholder="Paste your book chapter, article, or document text here..."></textarea>
+            </div>
+            
+            <div class="button-group">
+                <button class="btn btn-teal" id="summarizeBtn">✨ Generate Summary & Key Points</button>
+                <button class="btn btn-orange" id="bookToFlashcardsBtn">Create Flashcards from Book</button>
+                <button class="btn btn-green" id="bookToQuizBtn">Create Quiz from Book</button>
+                <button class="btn btn-blue" id="doAllBtn">Do All (Summary + Flashcards + Quiz)</button>
+            </div>
+            
+            <div class="progress-bar" id="progressBar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            
+            <div class="summary-box" id="summaryBox">
+                <div class="summary-title">📖 Book Summary</div>
+                <div class="summary-content" id="summaryContent"></div>
+                <div class="key-points" id="keyPointsBox">
+                    <h4>🔑 Key Points</h4>
+                    <ul id="keyPointsList"></ul>
+                </div>
+            </div>
+            
+            <div id="bookSuccessMsg" class="success-message"></div>
+        </div>
+
+        <!-- ========================================
+             NOTES PANEL
+             ======================================== -->
+        <div class="panel active" id="notes-panel">
+            <h2>📝 Your Study Notes</h2>
+            <p class="panel-desc">Write or paste your L3 subject notes below</p>
+            <textarea class="notes-area" id="notesInput" placeholder="Example:&#10;&#10;Rwanda's three main geographical regions:&#10;1. Congo-Nile ridge (western mountains)&#10;2. Central plateau&#10;3. Eastern savannahs&#10;&#10;Lake Kivu is one of Africa's deepest lakes.&#10;&#10;Rwanda gained independence in 1962."></textarea>
+            <div class="button-group">
+                <button class="btn" id="saveNotesBtn">💾 Save Notes</button>
+                <button class="btn btn-orange" id="generateFlashcardsBtn">✨ Make Flashcards</button>
+                <button class="btn btn-green" id="generateQuizBtn">🎯 Make Smart Quiz</button>
+            </div>
+            <div id="saveConfirm" class="save-confirm">✅ Notes saved successfully!</div>
+        </div>
+
+        <!-- ========================================
+             FLASHCARDS PANEL
+             ======================================== -->
+        <div class="panel" id="flashcards-panel">
+            <h2>🃏 Study Flashcards</h2>
+            <p class="panel-desc">Click any card to flip and see the answer</p>
+            <div id="flashcardsContainer">
+                <div class="info-text">📌 No flashcards yet. Go to Notes or Book Upload tab to create some!</div>
+            </div>
+            <button class="btn btn-red" id="resetFlashcardsBtn">🗑️ Delete All Flashcards</button>
+        </div>
+
+        <!-- ========================================
+             QUIZ PANEL
+             ======================================== -->
+        <div class="panel" id="quiz-panel">
+            <div class="quiz-header">
+                <h2>✅ Smart Quiz System</h2>
+                <div class="quiz-stats" id="quizStats">Questions: 0</div>
+            </div>
+            <p class="panel-desc">Test your knowledge with interactive quizzes</p>
+            
+            <div class="button-group">
+                <button class="btn btn-blue" id="standardQuizBtn">📋 Standard Quiz</button>
+                <button class="btn btn-purple" id="reviewWrongBtn">🔄 Review Wrong Answers</button>
+                <button class="btn btn-orange" id="randomQuizBtn">🎲 Random Order Quiz</button>
+            </div>
+            
+            <div id="quizContainer">
+                <div class="info-text">📌 No quiz yet. Go to Notes or Book Upload tab to create one!</div>
+            </div>
+            
+            <div id="quizResult" class="quiz-result"></div>
+            
+            <div class="button-group">
+                <button class="btn btn-green" id="submitQuizBtn" style="display: none;">📊 Submit & Grade</button>
+                <button class="btn btn-blue" id="showExplanationsBtn" style="display: none;">💡 Show Explanations</button>
+                <button class="btn btn-orange" id="retryWrongBtn" style="display: none;">🔄 Retry Wrong Answers</button>
+                <button class="btn btn-red" id="resetQuizBtn" style="display: none;">🗑️ Reset Quiz</button>
+            </div>
+        </div>
+
+        <!-- ========================================
+             PAST PAPER PANEL
+             ======================================== -->
+        <div class="panel" id="pastpaper-panel">
+            <h2>📄 Past Paper to Study</h2>
+            <p class="panel-desc">Upload a past exam or paste the questions</p>
+
+            <div class="pastpaper-box">
+                <h3>📁 Option 1: Upload a Text File</h3>
+                <div class="upload-area" id="uploadArea">
+                    <div>📂 Click to select a .txt file</div>
+                    <div class="upload-hint">(Save your exam as .txt file first)</div>
+                    <input type="file" id="fileInput" accept=".txt" style="display: none;">
+                </div>
+                <div id="fileNameDisplay" class="file-name-display"></div>
+
+                <h3>✏️ Option 2: Paste Exam Questions Here</h3>
+                <textarea id="pastPaperText" class="manual-textarea" rows="6" placeholder="Paste your exam questions here..."></textarea>
+
+                <button class="btn btn-orange full-width" id="processPastPaperBtn">🚀 Generate Flashcards & Quiz from Past Paper</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="course.js"></script>
+</body>
+</html>
