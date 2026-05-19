@@ -431,12 +431,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const flashcardsContainer = document.getElementById("flashcardsContainer");
     const quizContainer = document.getElementById("quizContainer");
 
-    if (flashcardsContainer && !flashcardsContainer.innerHTML.trim()) {
-        setContainerState(flashcardsContainer, emptyCard("Ready when you are", "Click Flashcards after saving notes."));
+    if (flashcardsContainer) {
+        setContainerState(
+            flashcardsContainer,
+            emptyCard("Ready when you are", "Click Flashcards after saving notes.")
+        );
     }
-    if (quizContainer && !quizContainer.innerHTML.trim()) {
-        setContainerState(quizContainer, emptyCard("Quiz will appear here", "Click Quiz after saving notes."));
+    if (quizContainer) {
+        setContainerState(
+            quizContainer,
+            emptyCard("Quiz will appear here", "Click Quiz after saving notes.")
+        );
     }
+
 
     const getNotesOrSaved = () => {
         const typed = notesInputEl ? notesInputEl.value : "";

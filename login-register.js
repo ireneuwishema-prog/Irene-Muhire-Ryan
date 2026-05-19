@@ -67,6 +67,32 @@ function changeLanguage(lang) {
 // - Regular login button goes to course.html (no auth implemented in this project)
 // - Admin login button goes to admin.html
 function handleLoginClick() {
+    const email = document.getElementById("emailInput")?.value?.trim();
+    const password = document.getElementById("passwordInput")?.value?.trim();
+
+    if (!email || !password) {
+        alert("Please enter email and password.");
+        return;
+    }
+
+    // This project uses a simple localStorage flag (see course.js)
+    localStorage.setItem("loggedIn", "true");
     window.location.href = "./course.html";
 }
+
+function handleRegisterClick() {
+    const name = document.getElementById("nameInput")?.value?.trim();
+    const email = document.getElementById("emailInput")?.value?.trim();
+    const password = document.getElementById("passwordInput")?.value?.trim();
+
+    if (!name || !email || !password) {
+        alert("Please fill in all required fields.");
+        return;
+    }
+
+    // Demo behavior: immediately consider the user logged in (no backend/auth).
+    localStorage.setItem("loggedIn", "true");
+    window.location.href = "./course.html";
+}
+
 
