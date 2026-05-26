@@ -6,16 +6,947 @@
     <title>L3 Study Helper Pro</title>
 
     <link rel="stylesheet" href="course.css">
+    <style>
+        /* ENHANCED STYLES */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+        }
+
+        /* TOPBAR */
+        .topbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .topbar-logo {
+            width: 45px;
+            height: 45px;
+            object-fit: contain;
+            animation: slideDown 0.6s ease-out;
+        }
+
+        .topbar h2 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 700;
+            animation: slideDown 0.6s ease-out 0.1s both;
+        }
+
+        .top-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            animation: slideDown 0.6s ease-out 0.2s both;
+        }
+
+        .btn-small {
+            padding: 10px 18px;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+        }
+
+        .btn-small:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-3px);
+        }
+
+        .btn-small.btn-green {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border: none;
+        }
+
+        .btn-small.btn-green:hover {
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        /* HERO SECTION */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 30px;
+            text-align: center;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-card {
+            max-width: 700px;
+            animation: slideDown 0.6s ease-out;
+        }
+
+        .hero-tag {
+            font-size: 16px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-main {
+            padding: 14px 40px;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-main:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-outline {
+            padding: 14px 40px;
+            background: transparent;
+            color: white;
+            text-decoration: none;
+            border: 2px solid white;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: #667eea;
+            transform: translateY(-3px);
+        }
+
+        /* SECTIONS */
+        .section {
+            padding: 60px 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        .section-subtitle {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.6;
+            animation: slideUp 0.6s ease-out 0.1s both;
+        }
+
+        /* FEATURES */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
+            border-top: 4px solid #667eea;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) { animation-delay: 0.3s; }
+        .feature-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* HOW IT WORKS */
+        .how-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .step-card {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+            border-radius: 12px;
+            padding: 35px;
+            text-align: center;
+            border: 2px solid #f0f0f0;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .step-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.1);
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .step-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 12px;
+        }
+
+        .step-card p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* STATS */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .value-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 35px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.2);
+            transition: all 0.3s;
+        }
+
+        .value-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .value-card strong {
+            display: block;
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .value-card p {
+            font-size: 15px;
+            line-height: 1.5;
+            opacity: 0.95;
+        }
+
+        /* TESTIMONIALS */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .testimonial-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.2);
+            border-color: #667eea;
+        }
+
+        .testimonial-stars {
+            color: #fbbf24;
+            font-size: 18px;
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+        }
+
+        .testimonial-text {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.6;
+            font-style: italic;
+            font-size: 14px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .testimonial-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 20px;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .testimonial-info h4 {
+            margin: 0;
+            color: #333;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .testimonial-info p {
+            margin: 0;
+            color: #999;
+            font-size: 12px;
+        }
+
+        /* PRICING */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 12px;
+            padding: 35px;
+            text-align: center;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .pricing-card.featured {
+            border: 2px solid #667eea;
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.25);
+        }
+
+        .pricing-card:hover {
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+            transform: translateY(-5px);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.3);
+        }
+
+        .badge-popular {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .pricing-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+            margin: 20px 0 10px 0;
+        }
+
+        .pricing-desc {
+            color: #999;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+
+        .pricing-price {
+            font-size: 42px;
+            font-weight: 700;
+            color: #667eea;
+            margin: 20px 0 5px 0;
+        }
+
+        .pricing-period {
+            color: #999;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        .pricing-features {
+            list-style: none;
+            text-align: left;
+            margin: 25px 0;
+        }
+
+        .pricing-features li {
+            padding: 10px 0;
+            color: #666;
+            font-size: 14px;
+            border-bottom: 1px solid #f0f0f0;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .pricing-features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .pricing-btn {
+            width: 100%;
+            padding: 12px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s;
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+        }
+
+        .pricing-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .pricing-card.featured .pricing-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        /* CTA BANNER */
+        .cta-banner {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            padding: 50px 40px;
+            text-align: center;
+            color: white;
+            margin: 50px 0;
+            box-shadow: 0 12px 40px rgba(102, 126, 234, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-banner::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            50% { left: 100%; }
+            100% { left: 100%; }
+        }
+
+        .cta-banner h2 {
+            font-size: 32px;
+            margin-bottom: 15px;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-banner p {
+            font-size: 16px;
+            margin-bottom: 25px;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-banner .hero-buttons {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* CTA SECTION */
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 60px 30px;
+        }
+
+        .cta-card {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            color: white;
+        }
+
+        .cta-card h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .cta-card p {
+            font-size: 16px;
+            margin-bottom: 30px;
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+
+        /* FAQ */
+        .faq-container {
+            max-width: 700px;
+            margin: 40px auto 0;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .faq-item:hover {
+            border-color: #667eea;
+        }
+
+        .faq-header {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+            transition: all 0.3s;
+            user-select: none;
+        }
+
+        .faq-header:hover {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+        }
+
+        .faq-header h3 {
+            margin: 0;
+            color: #333;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .faq-toggle {
+            color: #667eea;
+            font-size: 24px;
+            font-weight: 700;
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+            color: #764ba2;
+        }
+
+        .faq-content {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item.active .faq-content {
+            padding: 20px;
+            max-height: 500px;
+        }
+
+        .faq-content p {
+            color: #666;
+            line-height: 1.6;
+            margin: 0;
+            font-size: 14px;
+        }
+
+        /* FEATURES HIGHLIGHT */
+        .features-highlight {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .highlight-item {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            border-left: 4px solid #667eea;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .highlight-item:hover {
+            transform: translateX(8px) translateY(-5px);
+            border-left-color: #764ba2;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.15);
+        }
+
+        .highlight-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .highlight-item:nth-child(2) .highlight-icon {
+            animation-delay: 0.2s;
+        }
+
+        .highlight-item:nth-child(3) .highlight-icon {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .highlight-item h3 {
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .highlight-item p {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        /* FOOTER */
+        .footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #667eea;
+            text-decoration: underline;
+        }
+
+        .footer-copy {
+            font-size: 13px;
+            color: #666;
+        }
+
+        /* ANIMATIONS */
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* SMOOTH SCROLLING */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .topbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .topbar-left {
+                gap: 10px;
+                width: 100%;
+            }
+
+            .topbar-logo {
+                width: 40px;
+                height: 40px;
+            }
+
+            .topbar h2 {
+                font-size: 18px;
+            }
+
+            .top-actions {
+                width: 100%;
+                justify-content: space-between;
+                gap: 8px;
+            }
+
+            .btn-small {
+                flex: 1;
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+
+            .hero {
+                padding: 60px 20px;
+                min-height: auto;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .section {
+                padding: 40px 20px;
+            }
+
+            .features,
+            .how-grid,
+            .stats-grid,
+            .testimonials-grid,
+            .pricing-grid,
+            .features-highlight {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .btn-main,
+            .btn-outline {
+                width: 100%;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .pricing-card.featured:hover {
+                transform: translateY(-5px);
+            }
+
+            .cta-banner {
+                padding: 40px 20px;
+            }
+
+            .cta-banner h2 {
+                font-size: 24px;
+            }
+
+            .cta-card h2 {
+                font-size: 28px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                font-size: 14px;
+            }
+
+            .topbar h2 {
+                font-size: 16px;
+            }
+
+            .hero h1 {
+                font-size: 24px;
+            }
+
+            .section-title {
+                font-size: 22px;
+            }
+
+            .btn-small {
+                padding: 8px 10px;
+                font-size: 11px;
+            }
+
+            .value-card strong {
+                font-size: 32px;
+            }
+
+            .cta-banner h2 {
+                font-size: 20px;
+            }
+
+            .pricing-price {
+                font-size: 32px;
+            }
+
+            .section {
+                padding: 30px 15px;
+            }
+        }
+    </style>
 </head>
 <body>
 
 <!-- TOP NAV -->
 <div class="topbar">
-    <h2>📘 L3 Study Helper Pro</h2>
+    <div class="topbar-left">
+        <img src="log.png" alt="L3 Study Helper Pro Logo" class="topbar-logo">
+        <h2>L3 Study Helper Pro</h2>
+    </div>
 
     <div class="top-actions">
         <a href="#features" class="btn-small">Features</a>
-        <a href="#how-it-works" class="btn-small">How it Works</a>
+        <a href="#pricing" class="btn-small">Pricing</a>
+        <a href="#faq" class="btn-small">FAQ</a>
         <a href="login.html" class="btn-small">Login</a>
         <a href="register.html" class="btn-small btn-green">Register</a>
     </div>
@@ -29,18 +960,17 @@
         <p>Use smart notes, flashcards, quizzes, and past papers in one place — designed for next-level exam prep.</p>
 
         <div class="hero-buttons">
-            <a href="login.html" class="btn-main">Start Learning</a>
+            <a href="course.html" class="btn-main">Start Learning</a>
             <a href="register.html" class="btn-outline">Create Account</a>
         </div>
     </div>
 </section>
 
+<!-- FEATURES SECTION -->
 <section class="section" id="features">
     <div class="section-header">
-        <div>
-            <h2 class="section-title">Everything you need to study smarter</h2>
-            <p class="section-subtitle">Focus on what matters with tools built for exam practice, review, and retention.</p>
-        </div>
+        <h2 class="section-title">Everything you need to study smarter</h2>
+        <p class="section-subtitle">Focus on what matters with tools built for exam practice, review, and retention.</p>
     </div>
 
     <div class="features">
@@ -65,14 +995,31 @@
             <p>Master exam formats and time yourself with real paper-style practice.</p>
         </div>
     </div>
+
+    <div class="features-highlight">
+        <div class="highlight-item">
+            <div class="highlight-icon">⚡</div>
+            <h3>Instant Summaries</h3>
+            <p>Get key points extracted automatically from your notes in seconds.</p>
+        </div>
+        <div class="highlight-item">
+            <div class="highlight-icon">🎯</div>
+            <h3>Targeted Practice</h3>
+            <p>Focus on weak areas with smart quiz recommendations based on your performance.</p>
+        </div>
+        <div class="highlight-item">
+            <div class="highlight-icon">📊</div>
+            <h3>Progress Tracking</h3>
+            <p>Monitor your improvement with detailed analytics and performance insights.</p>
+        </div>
+    </div>
 </section>
 
+<!-- HOW IT WORKS SECTION -->
 <section class="section" id="how-it-works">
     <div class="section-header">
-        <div>
-            <h2 class="section-title">How it works</h2>
-            <p class="section-subtitle">A simple workflow to turn your revision into results.</p>
-        </div>
+        <h2 class="section-title">How it works</h2>
+        <p class="section-subtitle">A simple workflow to turn your revision into results.</p>
     </div>
 
     <div class="how-grid">
@@ -91,9 +1038,15 @@
             <h3>Practice with quizzes</h3>
             <p>Turn your review into active studying with quick quizzes that make revision stick.</p>
         </div>
+        <div class="step-card">
+            <span class="step-number">4</span>
+            <h3>Master past papers</h3>
+            <p>Test yourself with real exam questions and build confidence before exam day.</p>
+        </div>
     </div>
 </section>
 
+<!-- STATS SECTION -->
 <section class="section">
     <div class="stats-grid">
         <div class="value-card">
@@ -108,29 +1061,244 @@
             <strong>24/7</strong>
             <p>access from any device with instant login and study tools.</p>
         </div>
-    </div>
-</section>
-
-<section class="section cta-section">
-    <div class="cta-card">
-        <h2>Ready to make every study session count?</h2>
-        <p>Sign up now and turn your notes into a smarter revision routine.</p>
-        <div class="hero-buttons">
-            <a href="register.html" class="btn-main">Create Account</a>
-            <a href="login.html" class="btn-outline">Login</a>
+        <div class="value-card">
+            <strong>1000+</strong>
+            <p>students already improving their exam scores.</p>
         </div>
     </div>
 </section>
 
+<!-- TESTIMONIALS SECTION -->
+<section class="section">
+    <div class="section-header">
+        <h2 class="section-title">What students say</h2>
+        <p class="section-subtitle">Real feedback from students using L3 Study Helper Pro.</p>
+    </div>
+
+    <div class="testimonials-grid">
+        <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-text">"This tool completely changed my study routine. The flashcards feature saved me hours of revision time!"</p>
+            <div class="testimonial-author">
+                <div class="testimonial-avatar">AK</div>
+                <div class="testimonial-info">
+                    <h4>Akira K.</h4>
+                    <p>L3 Student</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-text">"The quiz feature helped me identify my weak areas before the exam. I scored 15% higher than my previous attempt!"</p>
+            <div class="testimonial-author">
+                <div class="testimonial-avatar">MJ</div>
+                <div class="testimonial-info">
+                    <h4>Marie J.</h4>
+                    <p>L3 Student</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="testimonial-card">
+            <div class="testimonial-stars">★★★★★</div>
+            <p class="testimonial-text">"Past papers with instant feedback made me feel ready for the real exam. Highly recommend to anyone serious about their score!"</p>
+            <div class="testimonial-author">
+                <div class="testimonial-avatar">DJ</div>
+                <div class="testimonial-info">
+                    <h4>David J.</h4>
+                    <p>L3 Student</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PRICING SECTION -->
+<section class="section" id="pricing">
+    <div class="section-header">
+        <h2 class="section-title">Simple, transparent pricing</h2>
+        <p class="section-subtitle">Choose the plan that fits your study style.</p>
+    </div>
+
+    <div class="pricing-grid">
+        <div class="pricing-card">
+            <h3 class="pricing-title">Basic</h3>
+            <p class="pricing-desc">Get started with essentials</p>
+            <div class="pricing-price">Free</div>
+            <p class="pricing-period">Forever</p>
+            <ul class="pricing-features">
+                <li>Up to 5 notes</li>
+                <li>Basic note summaries</li>
+                <li>5 flashcards</li>
+                <li>Community support</li>
+            </ul>
+            <button class="pricing-btn">Get Started</button>
+        </div>
+
+        <div class="pricing-card featured">
+            <div class="badge-popular">MOST POPULAR</div>
+            <h3 class="pricing-title">Pro</h3>
+            <p class="pricing-desc">Everything you need to ace exams</p>
+            <div class="pricing-price">$9.99</div>
+            <p class="pricing-period">per month</p>
+            <ul class="pricing-features">
+                <li>Unlimited notes</li>
+                <li>AI-powered summaries</li>
+                <li>Unlimited flashcards</li>
+                <li>Smart quizzes</li>
+                <li>Past paper access</li>
+                <li>Progress tracking</li>
+                <li>Priority support</li>
+            </ul>
+            <button class="pricing-btn">Start Free Trial</button>
+        </div>
+
+        <div class="pricing-card">
+            <h3 class="pricing-title">Premium</h3>
+            <p class="pricing-desc">Maximum power and features</p>
+            <div class="pricing-price">$19.99</div>
+            <p class="pricing-period">per month</p>
+            <ul class="pricing-features">
+                <li>Everything in Pro</li>
+                <li>1-on-1 tutoring</li>
+                <li>Custom study plans</li>
+                <li>Advanced analytics</li>
+                <li>Offline access</li>
+                <li>24/7 premium support</li>
+            </ul>
+            <button class="pricing-btn">Upgrade Now</button>
+        </div>
+    </div>
+
+    <div class="cta-banner">
+        <h2>Not sure which plan is right for you?</h2>
+        <p>Try Pro free for 7 days. No credit card required.</p>
+        <a href="free-trial.html" class="btn-main">Start Free Trial</a>
+    </div>
+</section>
+
+<!-- FAQ SECTION -->
+<section class="section" id="faq">
+    <div class="section-header">
+        <h2 class="section-title">Frequently asked questions</h2>
+        <p class="section-subtitle">Find answers to common questions about L3 Study Helper Pro.</p>
+    </div>
+
+    <div class="faq-container">
+        <div class="faq-item active">
+            <div class="faq-header">
+                <h3>How does the AI summarizer work?</h3>
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-content">
+                <p>Our AI analyzes your notes and extracts the most important concepts and key points. It uses advanced NLP technology to identify main ideas and organize them in a way that's easy to study from.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-header">
+                <h3>Can I download my notes?</h3>
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-content">
+                <p>Yes! Pro and Premium members can download their notes, summaries, and flashcards as PDF or Word documents. This makes it easy to study offline or share with classmates.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-header">
+                <h3>How many past papers are included?</h3>
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-content">
+                <p>Pro and Premium members have access to 500+ past papers covering all major L3 subjects. We update our collection regularly with the latest papers.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-header">
+                <h3>Can I cancel my subscription anytime?</h3>
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-content">
+                <p>Absolutely! You can cancel your subscription anytime without any hidden fees or penalties. We believe in flexible, customer-friendly terms.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-header">
+                <h3>Is my data secure?</h3>
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-content">
+                <p>Yes, we use enterprise-grade encryption and follow GDPR compliance standards. Your study notes and personal data are always protected and never shared with third parties.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-header">
+                <h3>Do you offer student discounts?</h3>
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-content">
+                <p>Yes! Students with a valid .edu email address can get 30% off their first three months. Contact our support team to claim your discount.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FINAL CTA SECTION -->
+<section class="section cta-section">
+    <div class="cta-card">
+        <h2>Ready to ace your L3 exams?</h2>
+        <p>Join thousands of students already using L3 Study Helper Pro to improve their scores.</p>
+        <div class="hero-buttons">
+            <a href="register.html" class="btn-main">Create Your Account</a>
+            <a href="login.html" class="btn-outline">Already have an account? Login</a>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
 <footer class="footer">
     <div class="footer-links">
         <a href="#features">Features</a>
-        <a href="#how-it-works">How it Works</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <a href="#how-it-works">How It Works</a>
         <a href="login.html">Login</a>
         <a href="register.html">Register</a>
     </div>
-    <div class="footer-copy">L3 Study Helper Pro — Designed for focused exam revision.</div>
+    <div class="footer-copy">© 2026 L3 Study Helper Pro — Designed for focused exam revision. All rights reserved.</div>
 </footer>
+
+<script>
+    // FAQ Toggle with smooth animation
+    document.querySelectorAll('.faq-header').forEach(header => {
+        header.addEventListener('click', () => {
+            const item = header.parentElement;
+            
+            // Close other items
+            document.querySelectorAll('.faq-item').forEach(faq => {
+                if (faq !== item) faq.classList.remove('active');
+            });
+            
+            item.classList.toggle('active');
+        });
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+</script>
 
 </body>
 </html>

@@ -1,68 +1,67 @@
-// Translation dictionary
 const translations = {
     en: {
-        title: 'Login Form',
-        langLabel: 'Language',
+        title: 'Register Form',
+        nameLabel: 'Full Name',
         emailLabel: 'Email',
         passwordLabel: 'Password',
-        loginBtn: 'Login',
-        adminBtn: 'Admin Login',
-        switchText: "Don't have an account?",
-        registerLink: 'Register',
-        backHome: 'Back Home',
+        registerBtn: 'Register',
+        nameError: 'Please enter your full name',
         emailError: 'Please enter a valid email',
         passwordError: 'Password must be at least 6 characters',
-        loginError: 'Invalid email or password',
-        loginSuccess: 'Login successful! Redirecting...'
+        emailExists: 'This email is already registered',
+        registerSuccess: 'Registration successful! Redirecting to login...'
     },
     fr: {
-        title: 'Formulaire de Connexion',
-        langLabel: 'Langue',
+        title: 'Formulaire d\'Inscription',
+        nameLabel: 'Nom complet',
         emailLabel: 'Email',
         passwordLabel: 'Mot de passe',
-        loginBtn: 'Connexion',
-        adminBtn: 'Admin',
-        switchText: "Vous n'avez pas de compte?",
-        registerLink: 'S\'inscrire',
-        backHome: 'Retour à l\'accueil',
+        registerBtn: 'S\'inscrire',
+        nameError: 'Veuillez entrer votre nom complet',
         emailError: 'Veuillez entrer un email valide',
         passwordError: 'Le mot de passe doit contenir au moins 6 caractères',
-        loginError: 'Email ou mot de passe invalide',
-        loginSuccess: 'Connexion réussie!'
+        emailExists: 'Cet email est déjà enregistré',
+        registerSuccess: 'Inscription réussie!'
     },
     rw: {
-        title: 'Fomu y\'Iyinjira',
-        langLabel: 'Ururimi',
+        title: 'Fomu y\'Iyandikisha',
+        nameLabel: 'Izina Ryose',
         emailLabel: 'Email',
         passwordLabel: 'Ijambo-banga',
-        loginBtn: 'Iyinjira',
-        adminBtn: 'Admin',
-        switchText: 'Nta konti?',
-        registerLink: 'Kwiyandikisha',
-        backHome: 'Subira ku Mwambaro',
-        emailError: 'Injiza email nziza',
+        registerBtn: 'Kwiyandikisha',
+        nameError: 'Andika izina ryose',
+        emailError: 'Andika email nziza',
         passwordError: 'Ijambo-banga rigomba kuba na characters 6',
-        loginError: 'Email cyangwa ijambo-banga sibyemewe',
-        loginSuccess: 'Iyinjira ryakozwe!'
+        emailExists: 'Email iyi ari yo yanditse',
+        registerSuccess: 'Iyandikisha ryakozwe!'
     }
 };
 
 let currentLanguage = 'en';
 
-// Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Page loaded, initializing...');
+    console.log('Register page loaded');
     
     const mainButton = document.getElementById('mainButton');
     const langSelect = document.getElementById('languageSelect');
+    const nameInput = document.getElementById('nameInput');
     const emailInput = document.getElementById('emailInput');
     const passwordInput = document.getElementById('passwordInput');
 
     if (mainButton) {
-        console.log('Main button found');
+        console.log('Register button found');
         mainButton.addEventListener('click', (e) => {
             e.preventDefault();
-            handleLoginClick();
+            handleRegisterClick();
+        });
+    }
+
+    if (nameInput) {
+        nameInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                handleRegisterClick();
+            }
         });
     }
 
@@ -70,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
         emailInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 e.preventDefault();
-                handleLoginClick();
+                handleRegisterClick();
             }
         });
     }
@@ -79,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
         passwordInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 e.preventDefault();
-                handleLoginClick();
+                handleRegisterClick();
             }
         });
     }
@@ -91,21 +90,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Handle login click
-function handleLoginClick() {
-    console.log('Login clicked');
+function handleRegisterClick() {
+    console.log('Register clicked');
     
+    const name = document.getElementById('nameInput').value.trim();
     const email = document.getElementById('emailInput').value.trim();
     const password = document.getElementById('passwordInput').value;
     const mainButton = document.getElementById('mainButton');
 
-    console.log('Email:', email, 'Password length:', password.length);
+    console.log('Name:', name, 'Email:', email, 'Password length:', password.length);
 
-    // Clear previous errors
     clearErrors();
 
-    // Validate inputs
-    if (!email || !validateEmail(email)) {
+    // Validate
+    if (!name) {
+        console.log('Name validation failed');
+        showError('nameError', translations[currentLanguage].nameError);
+        return;
+    }
+
+    if (!validateEmail(email)) {
         console.log('Email validation failed');
         showError('emailError', translations[currentLanguage].emailError);
         return;
@@ -117,61 +121,54 @@ function handleLoginClick() {
         return;
     }
 
-    // Show loading state
+    // Check if email already exists
+    const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers')) || [];
+    console.log('Current registered users:', registeredUsers);
+    
+    if (registeredUsers.some(u => u.email === email)) {
+        console.log('Email already exists');
+        showError('emailError', translations[currentLanguage].emailExists);
+        return;
+    }
+
+    // Show loading
     mainButton.setAttribute('aria-busy', 'true');
     mainButton.disabled = true;
-    mainButton.textContent = 'Logging in...';
+    mainButton.textContent = 'Registering...';
 
-    // Simulate API delay
     setTimeout(() => {
-        // Get registered users from localStorage
-        const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers')) || [];
-        console.log('Registered users:', registeredUsers);
+        // Create new user
+        const newUser = {
+            name: name,
+            email: email,
+            password: password,
+            registeredAt: new Date().toISOString()
+        };
 
-        // Find user with matching email and password
-        const user = registeredUsers.find(u => u.email === email && u.password === password);
+        // Add to registered users
+        registeredUsers.push(newUser);
+        console.log('New user created:', newUser);
+        console.log('All users now:', registeredUsers);
+        
+        localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
+        console.log('Users saved to localStorage');
 
-        if (user) {
-            console.log('User found:', user);
-            
-            // User found - save current user session
-            const currentUser = {
-                name: user.name,
-                email: user.email,
-                registeredAt: user.registeredAt,
-                isAdmin: false
-            };
+        // Show success
+        showSuccessMessage(translations[currentLanguage].registerSuccess);
 
-            localStorage.setItem('currentUser', JSON.stringify(currentUser));
-            console.log('User saved to localStorage');
-            
-            // Show success message
-            showSuccessMessage(translations[currentLanguage].loginSuccess);
-
-            // Redirect to course page after brief delay
-            setTimeout(() => {
-                console.log('Redirecting to course.html');
-                window.location.href = 'course.html';
-            }, 1500);
-        } else {
-            console.log('User not found');
-            
-            // User not found
-            mainButton.setAttribute('aria-busy', 'false');
-            mainButton.disabled = false;
-            mainButton.textContent = 'Login';
-            showError('emailError', translations[currentLanguage].loginError);
-        }
+        // Redirect to login
+        setTimeout(() => {
+            console.log('Redirecting to login.html');
+            window.location.href = 'login.html';
+        }, 1500);
     }, 1000);
 }
 
-// Validate email format
 function validateEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
 }
 
-// Show error message
 function showError(elementId, message) {
     const errorElement = document.getElementById(elementId);
     if (errorElement) {
@@ -180,7 +177,6 @@ function showError(elementId, message) {
     }
 }
 
-// Clear all errors
 function clearErrors() {
     const errors = document.querySelectorAll('.error-message');
     errors.forEach(error => {
@@ -189,7 +185,6 @@ function clearErrors() {
     });
 }
 
-// Show success message
 function showSuccessMessage(message) {
     const alertDiv = document.createElement('div');
     alertDiv.className = 'alert alert-success';
@@ -212,17 +207,16 @@ function showSuccessMessage(message) {
     }, 3000);
 }
 
-// Change language
 function changeLanguage(lang) {
     currentLanguage = lang;
     
-    // Update all text elements
     const textKeys = {
         'title': 'title',
-        'langLabel': 'langLabel',
+        'langLabel': 'Language',
+        'nameLabel': 'nameLabel',
         'emailLabel': 'emailLabel',
         'passwordLabel': 'passwordLabel',
-        'mainButton': 'loginBtn'
+        'mainButton': 'registerBtn'
     };
 
     for (const [elementId, translationKey] of Object.entries(textKeys)) {
@@ -231,12 +225,4 @@ function changeLanguage(lang) {
             element.textContent = translations[lang][translationKey];
         }
     }
-
-    // Update register link text
-    const switchText = document.getElementById('switchText');
-    if (switchText) {
-        switchText.innerHTML = `${translations[lang].switchText} <a href="register.html">${translations[lang].registerLink}</a>`;
-    }
 }
-
-

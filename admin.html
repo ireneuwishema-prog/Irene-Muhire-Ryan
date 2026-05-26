@@ -24,55 +24,107 @@
     <!-- USER ADMIN LOGIN PANEL (admin login) -->
     <section id="login-panel" class="panel">
       <h1 class="title">Admin Login</h1>
-      <p class="subtitle">Approve or decline pending applications.</p>
+      <p class="subtitle">Manage and review user registrations.</p>
 
-      <div id="admin-error" class="alert hidden" role="alert"></div>
+      <div id="admin-error" class="alert alert-error hidden" role="alert"></div>
 
-      <form id="admin-login-form" class="form" onsubmit="return false;">
-        <label for="admin-username">Username</label>
-        <input id="admin-username" autocomplete="username" type="text" />
+      <form id="admin-login-form" class="form" onsubmit="handleAdminLogin(event)">
+        <div class="form-group">
+          <label for="admin-username">Username</label>
+          <input id="admin-username" autocomplete="username" type="text" placeholder="Enter admin username" required />
+        </div>
 
-        <label for="admin-password">Password</label>
-        <input id="admin-password" autocomplete="current-password" type="password" />
+        <div class="form-group">
+          <label for="admin-password">Password</label>
+          <input id="admin-password" autocomplete="current-password" type="password" placeholder="Enter password" required />
+        </div>
 
-        <button type="submit" class="btn">Login as Admin</button>
+        <button type="submit" class="btn btn-primary">Login as Admin</button>
       </form>
 
       <div class="hint">
         <span class="hint-badge">Demo</span>
-        <span>Credentials are hardcoded in <code>admin.js</code>.</span>
+        <span>Use credentials: admin / admin123</span>
       </div>
     </section>
 
-    <!-- ADMIN PANEL (applications table) -->
+    <!-- ADMIN PANEL (users & applications table) -->
     <section id="admin-panel" class="panel hidden">
       <div class="panel-header">
         <div>
-          <h1 class="title">Pending Applications</h1>
-          <p class="subtitle">Click Approve or Decline.</p>
+          <h1 class="title">Dashboard</h1>
+          <p class="subtitle" id="admin-welcome">Welcome, Admin!</p>
         </div>
 
         <button id="admin-logout-btn" class="btn btn-secondary" type="button">Logout</button>
       </div>
 
-      <div class="table-wrap">
-        <table class="table" aria-label="Applications pending review">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Requested Role</th>
-              <th>Submitted At</th>
-              <th class="right">Actions</th>
-            </tr>
-          </thead>
-          <tbody id="apps-tbody"></tbody>
-        </table>
+      <!-- Stats Cards -->
+      <div class="stats-container">
+        <div class="stat-card">
+          <h3>Total Users</h3>
+          <p class="stat-number" id="total-users">0</p>
+        </div>
+        <div class="stat-card">
+          <h3>Pending Applications</h3>
+          <p class="stat-number" id="pending-apps">0</p>
+        </div>
+        <div class="stat-card">
+          <h3>Approved</h3>
+          <p class="stat-number" id="approved-count">0</p>
+        </div>
+        <div class="stat-card">
+          <h3>Declined</h3>
+          <p class="stat-number" id="declined-count">0</p>
+        </div>
       </div>
 
-      <div class="empty-actions">
-        <p class="muted">No extra settings. Actions update localStorage instantly.</p>
+      <!-- Registered Users Table -->
+      <div class="table-section">
+        <h2>Registered Users</h2>
+        <div class="table-wrap">
+          <table class="table" aria-label="Registered users">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Registered At</th>
+                <th>Status</th>
+                <th class="right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="users-tbody">
+              <tr class="empty-row">
+                <td colspan="5">No registered users yet</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
+
+      <!-- Pending Applications Table -->
+      <div class="table-section">
+        <h2>Pending Applications</h2>
+        <div class="table-wrap">
+          <table class="table" aria-label="Applications pending review">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Requested Role</th>
+                <th>Submitted At</th>
+                <th class="right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="apps-tbody">
+              <tr class="empty-row">
+                <td colspan="5">No pending applications</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
     </section>
 
   </div>

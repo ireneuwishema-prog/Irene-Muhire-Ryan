@@ -14,8 +14,21 @@
     </div>
 
     <div class="topbar">
-        <div class="topbar-title">📚 L3 Study Helper Pro</div>
-        <button id="logoutBtn" class="btn-red">Logout</button>
+        <div class="topbar-left">
+            <div class="topbar-title">📚 L3 Study Helper Pro</div>
+        </div>
+
+        <div class="topbar-right">
+            <div class="user-info">
+                <span class="user-name" id="userName">Guest</span>
+                <span class="user-email" id="userEmail"></span>
+            </div>
+            
+            <div class="topbar-actions">
+                <a href="admin.html" class="btn-nav" id="adminLink" style="display: none;">🛡️ Admin</a>
+                <button id="logoutBtn" class="btn-red">Logout</button>
+            </div>
+        </div>
     </div>
 
     <div class="container">
@@ -24,7 +37,6 @@
             <h1>🚀 L3 Study Helper Pro</h1>
             <p>Upload books • Get summaries • Make flashcards • Take quizzes</p>
         </div>
-
 
         <!-- Tabs -->
         <div class="tabs">
@@ -35,9 +47,7 @@
             <button class="tab-btn" data-tab="pastpaper">📄 Past Paper</button>
         </div>
 
-        <!-- ========================================
-             BOOK UPLOAD & SUMMARIZER PANEL
-             ======================================== -->
+        <!-- BOOK UPLOAD PANEL -->
         <div class="panel" id="book-panel">
             <h2>📖 Book & Document Summarizer</h2>
             <p class="panel-desc">Upload any book, article, or document - Get instant summary, key points, flashcards & quiz!</p>
@@ -46,12 +56,12 @@
                 <div class="book-icon">📚</div>
                 <div><strong>Click to upload a book or document</strong></div>
                 <div class="upload-hint">Supports .txt files (Copy-paste from PDF/Word)</div>
-                <input type="file" id="bookFileInput" accept=".txt" style="display: none;">
+                <input type="file" id="bookFileInput" accept=".txt" aria-label="Upload book file" style="display: none;">
             </div>
             
             <div class="input-group">
-                <label><strong>📝 Or paste your text here:</strong></label>
-                <textarea id="bookTextInput" rows="6" class="manual-textarea" placeholder="Paste your book chapter, article, or document text here..."></textarea>
+                <label for="bookTextInput"><strong>📝 Or paste your text here:</strong></label>
+                <textarea id="bookTextInput" rows="6" class="manual-textarea" placeholder="Paste your book chapter, article, or document text here..." aria-label="Paste book text"></textarea>
             </div>
             
             <div class="button-group">
@@ -61,7 +71,7 @@
                 <button class="btn btn-blue" id="doAllBtn">Do All (Summary + Flashcards + Quiz)</button>
             </div>
             
-            <div class="progress-bar" id="progressBar">
+            <div class="progress-bar" id="progressBar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
                 <div class="progress-fill" id="progressFill"></div>
             </div>
             
@@ -74,27 +84,23 @@
                 </div>
             </div>
             
-            <div id="bookSuccessMsg" class="success-message"></div>
+            <div id="bookSuccessMsg" class="success-message" role="alert"></div>
         </div>
 
-        <!-- ========================================
-             NOTES PANEL
-             ======================================== -->
+        <!-- NOTES PANEL -->
         <div class="panel active" id="notes-panel">
             <h2>📝 Your Study Notes</h2>
             <p class="panel-desc">Write or paste your L3 subject notes below</p>
-            <textarea class="notes-area" id="notesInput" placeholder="Example:&#10;&#10;Rwanda's three main geographical regions:&#10;1. Congo-Nile ridge (western mountains)&#10;2. Central plateau&#10;3. Eastern savannahs&#10;&#10;Lake Kivu is one of Africa's deepest lakes.&#10;&#10;Rwanda gained independence in 1962."></textarea>
+            <textarea class="notes-area" id="notesInput" aria-label="Study notes" placeholder="Example:&#10;&#10;Rwanda's three main geographical regions:&#10;1. Congo-Nile ridge (western mountains)&#10;2. Central plateau&#10;3. Eastern savannahs&#10;&#10;Lake Kivu is one of Africa's deepest lakes.&#10;&#10;Rwanda gained independence in 1962."></textarea>
             <div class="button-group">
                 <button class="btn" id="saveNotesBtn">💾 Save Notes</button>
                 <button class="btn btn-orange" id="generateFlashcardsBtn">✨ Make Flashcards</button>
                 <button class="btn btn-green" id="generateQuizBtn">🎯 Make Smart Quiz</button>
             </div>
-            <div id="saveConfirm" class="save-confirm">✅ Notes saved successfully!</div>
+            <div id="saveConfirm" class="save-confirm" role="alert">✅ Notes saved successfully!</div>
         </div>
 
-        <!-- ========================================
-             FLASHCARDS PANEL
-             ======================================== -->
+        <!-- FLASHCARDS PANEL -->
         <div class="panel" id="flashcards-panel">
             <h2>🃏 Study Flashcards</h2>
             <p class="panel-desc">Click any card to flip and see the answer</p>
@@ -104,9 +110,7 @@
             <button class="btn btn-red" id="resetFlashcardsBtn">🗑️ Delete All Flashcards</button>
         </div>
 
-        <!-- ========================================
-             QUIZ PANEL
-             ======================================== -->
+        <!-- QUIZ PANEL -->
         <div class="panel" id="quiz-panel">
             <div class="quiz-header">
                 <h2>✅ Smart Quiz System</h2>
@@ -124,7 +128,7 @@
                 <div class="info-text">📌 No quiz yet. Go to Notes or Book Upload tab to create one!</div>
             </div>
             
-            <div id="quizResult" class="quiz-result"></div>
+            <div id="quizResult" class="quiz-result" role="region" aria-live="polite"></div>
             
             <div class="button-group">
                 <button class="btn btn-green" id="submitQuizBtn" style="display: none;">📊 Submit & Grade</button>
@@ -134,9 +138,7 @@
             </div>
         </div>
 
-        <!-- ========================================
-             PAST PAPER PANEL
-             ======================================== -->
+        <!-- PAST PAPER PANEL -->
         <div class="panel" id="pastpaper-panel">
             <h2>📄 Past Paper to Study</h2>
             <p class="panel-desc">Upload a past exam or paste the questions</p>
@@ -146,12 +148,12 @@
                 <div class="upload-area" id="uploadArea">
                     <div>📂 Click to select a .txt file</div>
                     <div class="upload-hint">(Save your exam as .txt file first)</div>
-                    <input type="file" id="fileInput" accept=".txt" style="display: none;">
+                    <input type="file" id="fileInput" accept=".txt" aria-label="Upload past paper file" style="display: none;">
                 </div>
                 <div id="fileNameDisplay" class="file-name-display"></div>
 
                 <h3>✏️ Option 2: Paste Exam Questions Here</h3>
-                <textarea id="pastPaperText" class="manual-textarea" rows="6" placeholder="Paste your exam questions here..."></textarea>
+                <textarea id="pastPaperText" class="manual-textarea" rows="6" aria-label="Paste exam questions" placeholder="Paste your exam questions here..."></textarea>
 
                 <button class="btn btn-orange full-width" id="processPastPaperBtn">🚀 Generate Flashcards & Quiz from Past Paper</button>
             </div>

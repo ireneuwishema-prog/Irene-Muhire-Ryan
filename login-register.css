@@ -1,38 +1,33 @@
-/* Reset default browser spacing */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Page background */
 body {
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #0f172a, #1e3a8a, #3b82f6);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    padding: 20px;
 }
 
-/* Main form card */
 .form-card {
-    width: 420px;
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(15px);
-    border-radius: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
     padding: 40px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.25);
-    border: 1px solid rgba(255,255,255,0.2);
-    animation: slideUp 0.8s ease;
+    width: 100%;
+    max-width: 450px;
+    animation: slideUp 0.5s ease-out;
 }
 
-/* Animation when page loads */
 @keyframes slideUp {
     from {
         opacity: 0;
-        transform: translateY(40px);
+        transform: translateY(30px);
     }
     to {
         opacity: 1;
@@ -40,127 +35,196 @@ body {
     }
 }
 
-/* Logo section */
-.form-card::before {
-    content: "📘 E-Learning";
-    display: block;
-    text-align: center;
-    font-size: 24px;
-    font-weight: bold;
-    color: white;
-    margin-bottom: 20px;
-}
-
-/* Title */
 h1 {
+    color: #333;
+    margin-bottom: 30px;
     text-align: center;
-    color: white;
-    margin-bottom: 25px;
     font-size: 28px;
+    font-weight: 600;
 }
 
-/* Labels */
+.language-selector {
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.language-selector label {
+    color: #666;
+    font-weight: 500;
+    font-size: 14px;
+    min-width: 70px;
+}
+
+.language-selector select {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background-color: white;
+    color: #333;
+    cursor: pointer;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.language-selector select:hover,
+.language-selector select:focus {
+    border-color: #667eea;
+    outline: none;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
 label {
-    display: block;
-    color: white;
-    margin: 12px 0 6px;
+    color: #333;
+    font-weight: 500;
     font-size: 14px;
 }
 
-/* Inputs and select */
-input,
-select {
-    width: 100%;
-    padding: 14px;
-    border: none;
-    border-radius: 12px;
-    margin-bottom: 15px;
-    font-size: 15px;
+input {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.3s;
+    font-family: inherit;
+}
+
+input:focus {
     outline: none;
-    background: rgba(255,255,255,0.9);
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
-/* Input focus effect */
-input:focus,
-select:focus {
-    transform: scale(1.02);
-    transition: 0.3s;
+input::placeholder {
+    color: #999;
 }
 
-/* Buttons layout */
-.role-actions {
-    display: flex;
-    gap: 10px;
+input:invalid:not(:placeholder-shown) {
+    border-color: #e74c3c;
+}
+
+.error-message {
+    color: #e74c3c;
+    font-size: 12px;
+    display: none;
+    margin-top: -4px;
+}
+
+.error-message.show {
+    display: block;
+}
+
+button {
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
     margin-top: 10px;
 }
 
-/* Login main button */
-button {
-    width: 100%;
-    padding: 15px;
-    background: #2563eb;
-    border: none;
-    border-radius: 12px;
-    color: white;
-    font-size: 17px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-/* Admin small button */
-.btn-small {
-    width: auto;
-    padding: 12px 14px;
-    background: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.20);
-    border-radius: 12px;
-    color: white;
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.btn-small:hover {
+button:hover:not([aria-busy="true"]) {
     transform: translateY(-2px);
-    box-shadow: 0 8px 18px rgba(255,255,255,0.15);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
 }
 
-
-/* Button hover */
-button:hover {
-    background: #1d4ed8;
-    transform: translateY(-3px);
-    box-shadow: 0 8px 18px rgba(37,99,235,0.4);
+button:active:not([aria-busy="true"]) {
+    transform: translateY(0);
 }
 
-/* Paragraph text */
-p {
+button[aria-busy="true"] {
+    opacity: 0.7;
+    cursor: not-allowed;
+    position: relative;
+}
+
+button[aria-busy="true"]::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    right: 20px;
+    margin-top: -8px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+#switchText {
     text-align: center;
-    margin-top: 18px;
-    color: white;
+    color: #666;
+    margin-top: 20px;
+    font-size: 14px;
 }
 
-/* Links */
-a {
-    color: #facc15;
+#switchText a {
+    color: #667eea;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 600;
+    transition: color 0.3s;
 }
 
-a:hover {
+#switchText a:hover {
+    color: #764ba2;
     text-decoration: underline;
 }
 
-/* Mobile responsive */
-@media (max-width: 500px) {
+p {
+    text-align: center;
+    margin-top: 15px;
+}
+
+p a {
+    color: #667eea;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s;
+}
+
+p a:hover {
+    color: #764ba2;
+    text-decoration: underline;
+}
+
+@media (max-width: 600px) {
     .form-card {
-        width: 90%;
-        padding: 25px;
+        padding: 30px 20px;
     }
 
     h1 {
-        font-size: 22px;
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    input {
+        padding: 10px 12px;
+        font-size: 16px;
+    }
+
+    button {
+        padding: 11px 18px;
+        font-size: 15px;
     }
 }

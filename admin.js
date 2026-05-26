@@ -136,31 +136,206 @@ function tryAdminLogin(event) {
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  const loginPanel = document.getElementById("login-panel");
-  const adminPanel = document.getElementById("admin-panel");
+// Admin credentials
+const ADMIN_CREDS = {
+    username: 'admin',
+    password: 'admin123'
+};
 
-  if (isAdminAuthed()) {
-    if (loginPanel) loginPanel.classList.add("hidden");
-    if (adminPanel) adminPanel.classList.remove("hidden");
-    renderTable();
-  } else {
-    if (loginPanel) loginPanel.classList.remove("hidden");
-    if (adminPanel) adminPanel.classList.add("hidden");
-  }
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+    const loginForm = document.getElementById('admin-login-form');
+    const logoutBtn = document.getElementById('admin-logout-btn');
 
-  const form = document.getElementById("admin-login-form");
-  if (form) form.addEventListener("submit", tryAdminLogin);
+    loginForm.addEventListener('submit', handleAdminLogin);
+    logoutBtn.addEventListener('click', handleAdminLogout);
 
-  const logoutBtn = document.getElementById("admin-logout-btn");
-  if (logoutBtn) {
-    logoutBtn.addEventListener("click", () => {
-      setAdminSession(false);
-      if (loginPanel) loginPanel.classList.remove("hidden");
-      if (adminPanel) adminPanel.classList.add("hidden");
-      const err = document.getElementById("admin-error");
-      if (err) err.classList.add("hidden");
-    });
-  }
+    // Check if admin is already logged in
+    if (isAdminLoggedIn()) {
+        showAdminPanel();
+    }
 });
+
+// Handle admin login
+function handleAdminLogin(event) {
+    event.preventDefault();
+
+    const username = document.getElementById('admin-username').value.trim();
+    const password = document.getElementById('admin-password').value;
+    const errorDiv = document.getElementById('admin-error');
+
+    // Validate credentials
+    if (username === ADMIN_CREDS.username && password === ADMIN_CREDS.password) {
+        // Store admin session
+        sessionStorage.setItem('adminLoggedIn', 'true');
+        sessionStorage.setItem('adminUsername', username);
+
+        // Show admin panel
+        showAdminPanel();
+        errorDiv.classList.add('hidden');
+    } else {
+        errorDiv.textContent = '❌ Invalid credentials. Please try again.';
+        errorDiv.classList.remove('hidden');
+    }
+}
+
+// Handle admin logout
+function handleAdminLogout() {
+    sessionStorage.removeItem('adminLoggedIn');
+    sessionStorage.removeItem('adminUsername');
+    
+    document.getElementById('login-panel').classList.remove('hidden');
+    document.getElementById('admin-panel').classList.add('hidden');
+    document.getElementById('admin-login-form').reset();
+}
+
+// Check if admin is logged in
+function isAdminLoggedIn() {
+    return sessionStorage.getItem('adminLoggedIn') === 'true';
+}
+
+// Show admin panel and load data
+function showAdminPanel() {
+    document.getElementById('login-panel').classList.add('hidden');
+    document.getElementById('admin-panel').classList.remove('hidden');
+    
+    const adminUsername = sessionStorage.getItem('adminUsername');
+    document.getElementById('admin-welcome').textContent = `Welcome, ${adminUsername}!`;
+
+    loadUsers();
+    loadApplications();
+    updateStats();
+}
+
+// Load registered users from localStorage
+function loadUsers() {
+    const users = JSON.parse(localStorage.getItem('registeredUsers')) || [];
+    const tbody = document.getElementById('users-tbody');
+
+    tbody.innerHTML = '';
+
+    if (users.length === 0) {
+        tbody.innerHTML = '<tr class="empty-row"><td colspan="5">No registered users yet</td></tr>';
+        return;
+    }
+
+    users.forEach((user, index) => {
+        const row = document.createElement('tr');
+        const registeredAt = new Date(user.registeredAt || Date.now()).toLocaleDateString();
+        
+        row.innerHTML = `
+            <td>${escapeHtml(user.name || 'N/A')}</td>
+            <td>${escapeHtml(user.email || 'N/A')}</td>
+            <td>${registeredAt}</td>
+            <td><span class="status-badge status-approved">Active</span></td>
+            <td class="table-actions" style="text-align: right;">
+                <button class="btn btn-delete" onclick="deleteUser(${index})">Delete</button>
+            </td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+// Load pending applications
+function loadApplications() {
+    const applications = JSON.parse(localStorage.getItem('pendingApplications')) || [];
+    const tbody = document.getElementById('apps-tbody');
+
+    tbody.innerHTML = '';
+
+    if (applications.length === 0) {
+        tbody.innerHTML = '<tr class="empty-row"><td colspan="5">No pending applications</td></tr>';
+        return;
+    }
+
+    applications.forEach((app, index) => {
+        const row = document.createElement('tr');
+        const submittedAt = new Date(app.submittedAt || Date.now()).toLocaleDateString();
+        
+        row.innerHTML = `
+            <td>${escapeHtml(app.name || 'N/A')}</td>
+            <td>${escapeHtml(app.email || 'N/A')}</td>
+            <td>${escapeHtml(app.requestedRole || 'N/A')}</td>
+            <td>${submittedAt}</td>
+            <td class="table-actions" style="text-align: right;">
+                <button class="btn btn-approve" onclick="approveApplication(${index})">Approve</button>
+                <button class="btn btn-decline" onclick="declineApplication(${index})">Decline</button>
+            </td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+// Approve application
+function approveApplication(index) {
+    const applications = JSON.parse(localStorage.getItem('pendingApplications')) || [];
+    const app = applications[index];
+
+    if (confirm(`Approve application from ${app.name}?`)) {
+        applications.splice(index, 1);
+        localStorage.setItem('pendingApplications', JSON.stringify(applications));
+        loadApplications();
+        updateStats();
+        showNotification('Application approved!', 'success');
+    }
+}
+
+// Decline application
+function declineApplication(index) {
+    const applications = JSON.parse(localStorage.getItem('pendingApplications')) || [];
+    const app = applications[index];
+
+    if (confirm(`Decline application from ${app.name}?`)) {
+        applications.splice(index, 1);
+        localStorage.setItem('pendingApplications', JSON.stringify(applications));
+        loadApplications();
+        updateStats();
+        showNotification('Application declined!', 'success');
+    }
+}
+
+// Delete user
+function deleteUser(index) {
+    const users = JSON.parse(localStorage.getItem('registeredUsers')) || [];
+    const user = users[index];
+
+    if (confirm(`Delete user ${user.name}?`)) {
+        users.splice(index, 1);
+        localStorage.setItem('registeredUsers', JSON.stringify(users));
+        loadUsers();
+        updateStats();
+        showNotification('User deleted!', 'success');
+    }
+}
+
+// Update statistics
+function updateStats() {
+    const users = JSON.parse(localStorage.getItem('registeredUsers')) || [];
+    const applications = JSON.parse(localStorage.getItem('pendingApplications')) || [];
+
+    document.getElementById('total-users').textContent = users.length;
+    document.getElementById('pending-apps').textContent = applications.length;
+    document.getElementById('approved-count').textContent = users.length; // Simplified
+    document.getElementById('declined-count').textContent = '0'; // Simplified
+}
+
+// Show notification
+function showNotification(message, type) {
+    const alert = document.createElement('div');
+    alert.className = `alert alert-${type}`;
+    alert.textContent = message;
+    
+    document.body.insertBefore(alert, document.body.firstChild);
+    
+    setTimeout(() => {
+        alert.remove();
+    }, 3000);
+}
+
+// Escape HTML to prevent XSS
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
 

@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start Your Free Trial - L3 Study Helper Pro</title>
+    <link rel="stylesheet" href="course.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+        }
+
+        /* TOPBAR */
+        .topbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .topbar-logo {
+            width: 45px;
+            height: 45px;
+            object-fit: contain;
+        }
+
+        .topbar h2 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .topbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .topbar a:hover {
+            opacity: 0.8;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 30px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            opacity: 0.95;
+            margin-bottom: 10px;
+        }
+
+        .hero-countdown {
+            font-size: 16px;
+            font-weight: 600;
+            color: #fbbf24;
+            margin-top: 15px;
+        }
+
+        /* CONTAINER */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 30px;
+        }
+
+        /* TRIAL INFO SECTION */
+        .trial-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+        .trial-content h2 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .trial-benefits {
+            list-style: none;
+            margin: 30px 0;
+        }
+
+        .trial-benefits li {
+            padding: 15px 0;
+            padding-left: 35px;
+            position: relative;
+            color: #666;
+            font-size: 15px;
+            line-height: 1.6;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .trial-benefits li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        .trial-cta {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.15);
+        }
+
+        .trial-cta h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .trial-cta p {
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .btn-start-trial {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.2);
+        }
+
+        .btn-start-trial:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .terms-notice {
+            font-size: 12px;
+            color: #999;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .terms-notice a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .terms-notice a:hover {
+            text-decoration: underline;
+        }
+
+        /* FEATURES GRID */
+        .trial-features {
+            background: #f9f9f9;
+            border-radius: 12px;
+            padding: 50px 30px;
+            margin-bottom: 60px;
+        }
+
+        .trial-features h2 {
+            text-align: center;
+            font-size: 32px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 40px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-item {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
+            border-top: 4px solid #667eea;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.15);
+        }
+
+        .feature-item-icon {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .feature-item h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .feature-item p {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* FAQ SECTION */
+        .faq-section {
+            margin-bottom: 60px;
+        }
+
+        .faq-section h2 {
+            text-align: center;
+            font-size: 32px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 40px;
+        }
+
+        .faq-list {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
+        }
+
+        .faq-header {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+            transition: all 0.3s;
+            user-select: none;
+        }
+
+        .faq-header:hover {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+        }
+
+        .faq-header h3 {
+            margin: 0;
+            color: #333;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .faq-toggle {
+            color: #667eea;
+            font-size: 24px;
+            font-weight: 700;
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+
+        .faq-content {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item.active .faq-content {
+            padding: 20px;
+            max-height: 500px;
+        }
+
+        .faq-content p {
+            color: #666;
+            line-height: 1.6;
+            margin: 0;
+            font-size: 14px;
+        }
+
+        /* PRICING COMPARISON */
+        .comparison-section {
+            background: #f9f9f9;
+            border-radius: 12px;
+            padding: 50px 30px;
+            margin-bottom: 60px;
+        }
+
+        .comparison-section h2 {
+            text-align: center;
+            font-size: 32px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 40px;
+        }
+
+        .comparison-table {
+            overflow-x: auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: left;
+            font-weight: 700;
+        }
+
+        table td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            color: #666;
+            font-size: 14px;
+        }
+
+        table tr:hover {
+            background: #f9f9f9;
+        }
+
+        .check {
+            color: #10b981;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .cross {
+            color: #ef4444;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        /* FOOTER */
+        .footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #667eea;
+        }
+
+        .footer-copy {
+            font-size: 13px;
+            color: #666;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .trial-info {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .trial-content h2 {
+                font-size: 24px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 13px;
+            }
+
+            table th,
+            table td {
+                padding: 12px 15px;
+            }
+
+            .container {
+                padding: 40px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 22px;
+            }
+
+            .trial-content h2 {
+                font-size: 20px;
+            }
+
+            .trial-features h2,
+            .faq-section h2,
+            .comparison-section h2 {
+                font-size: 24px;
+            }
+
+            .form-group input,
+            .form-group select {
+                padding: 10px;
+                font-size: 13px;
+            }
+
+            .container {
+                padding: 30px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+    <div class="topbar-left">
+        <img src="log.png" alt="L3 Study Helper Pro Logo" class="topbar-logo">
+        <h2>L3 Study Helper Pro</h2>
+    </div>
+    <a href="home.html">← Back to Home</a>
+</div>
+
+<!-- HERO SECTION -->
+<section class="hero">
+    <div>
+        <h1>🎉 Start Your 7-Day Free Trial</h1>
+        <p>No credit card required. No hidden fees. Cancel anytime.</p>
+        <div class="hero-countdown">
+            ⏰ Limited offer - Get instant access to all Pro features
+        </div>
+    </div>
+</section>
+
+<!-- MAIN CONTAINER -->
+<div class="container">
+
+    <!-- TRIAL INFO -->
+    <section class="trial-info">
+        <div class="trial-content">
+            <h2>What's Included in Your Free Trial?</h2>
+            <ul class="trial-benefits">
+                <li><strong>Unlimited Notes</strong> - Create and organize as many notes as you need</li>
+                <li><strong>AI-Powered Summaries</strong> - Get instant key points from your notes</li>
+                <li><strong>Unlimited Flashcards</strong> - Generate and study unlimited flashcards</li>
+                <li><strong>Smart Quizzes</strong> - Take adaptive quizzes based on your performance</li>
+                <li><strong>500+ Past Papers</strong> - Full access to comprehensive past paper library</li>
+                <li><strong>Progress Tracking</strong> - Monitor your improvement with detailed analytics</li>
+                <li><strong>Priority Support</strong> - Get help when you need it</li>
+            </ul>
+            <p style="color: #667eea; font-weight: 600; margin-top: 20px;">
+                ✓ 7 days of full access | ✓ Cancel anytime | ✓ No credit card during trial
+            </p>
+        </div>
+
+        <div class="trial-cta">
+            <h3>Get Started Today</h3>
+            <p>Fill in your details below to activate your free trial instantly</p>
+
+            <form id="trialForm">
+                <div class="form-group">
+                    <label>Full Name *</label>
+                    <input type="text" placeholder="Enter your full name" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Email Address *</label>
+                    <input type="email" placeholder="your.email@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Password *</label>
+                    <input type="password" placeholder="Create a strong password" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Country/Region *</label>
+                    <select required>
+                        <option value="">Select your country</option>
+                        <option value="Rwanda">Rwanda</option>
+                        <option value="Uganda">Uganda</option>
+                        <option value="Kenya">Kenya</option>
+                        <option value="Tanzania">Tanzania</option>
+                        <option value="Burundi">Burundi</option>
+                        <option value="DRC">Democratic Republic of Congo</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" required style="width: auto; margin-right: 8px;">
+                        I agree to the <a href="#" style="color: #667eea; text-decoration: none;">Terms of Service</a> and <a href="#" style="color: #667eea; text-decoration: none;">Privacy Policy</a>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-start-trial">Start My Free Trial</button>
+
+                <div class="terms-notice">
+                    By clicking "Start My Free Trial", you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <section class="trial-features">
+        <h2>Pro Features You'll Unlock</h2>
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="feature-item-icon">📝</div>
+                <h3>Smart Notes</h3>
+                <p>Organize and manage unlimited notes with instant summaries</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-item-icon">🎴</div>
+                <h3>Flashcards</h3>
+                <p>Create unlimited flashcards with spaced repetition learning</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-item-icon">🧠</div>
+                <h3>Smart Quizzes</h3>
+                <p>Adaptive quizzes that adjust to your learning pace</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-item-icon">📄</div>
+                <h3>Past Papers</h3>
+                <p>Access 500+ past papers with instant feedback</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-item-icon">📊</div>
+                <h3>Progress Analytics</h3>
+                <p>Track your improvement with detailed performance insights</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-item-icon">⚡</div>
+                <h3>AI Summaries</h3>
+                <p>Auto-generate key points from your notes in seconds</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING COMPARISON -->
+    <section class="comparison-section">
+        <h2>How Your Trial Compares</h2>
+        <div class="comparison-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Free Plan</th>
+                        <th>Free Trial (Pro)</th>
+                        <th>Premium Plan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Notes</strong></td>
+                        <td>Up to 5</td>
+                        <td><span class="check">✓ Unlimited</span></td>
+                        <td><span class="check">✓ Unlimited</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Flashcards</strong></td>
+                        <td>5</td>
+                        <td><span class="check">✓ Unlimited</span></td>
+                        <td><span class="check">✓ Unlimited</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>AI Summaries</strong></td>
+                        <td><span class="cross">✗</span></td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="check">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Smart Quizzes</strong></td>
+                        <td><span class="cross">✗</span></td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="check">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Past Papers</strong></td>
+                        <td><span class="cross">✗</span></td>
+                        <td><span class="check">✓ 500+</span></td>
+                        <td><span class="check">✓ 500+</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Progress Tracking</strong></td>
+                        <td><span class="cross">✗</span></td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="check">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Priority Support</strong></td>
+                        <td><span class="cross">✗</span></td>
+                        <td><span class="check">✓</span></td>
+                        <td><span class="check">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>1-on-1 Tutoring</strong></td>
+                        <td><span class="cross">✗</span></td>
+                        <td><span class="cross">✗</span></td>
+                        <td><span class="check">✓</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="faq-section">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-list">
+            <div class="faq-item active">
+                <div class="faq-header">
+                    <h3>Do I need a credit card to start the free trial?</h3>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-content">
+                    <p>No! You don't need to provide a credit card to start your 7-day free trial. You'll only be charged when your trial period ends and you choose to continue as a paid subscriber.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-header">
+                    <h3>What happens after my 7 days are up?</h3>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-content">
+                    <p>After 7 days, you'll be asked to choose a subscription plan (Pro or Premium). If you don't want to continue, simply cancel and you won't be charged. Your notes and progress will be saved.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-header">
+                    <h3>Can I cancel my trial anytime?</h3>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-content">
+                    <p>Absolutely! You can cancel your trial at any time without any penalties or hidden fees. If you cancel before the 7 days end, you'll lose access to Pro features.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-header">
+                    <h3>Will my trial data be saved if I cancel?</h3>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-content">
+                    <p>Your notes and data from the free trial will be kept for 30 days. If you decide to upgrade later, you can recover your data. After 30 days, your trial data will be deleted.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-header">
+                    <h3>Can I get a refund if I'm not satisfied?</h3>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-content">
+                    <p>Yes! We offer a 14-day money-back guarantee on all paid subscriptions. If you're not happy with your subscription, contact our support team and we'll refund your payment.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-header">
+                    <h3>Can I use the trial on multiple devices?</h3>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-content">
+                    <p>Yes! Your trial account works on all devices. Log in with your email and password on your computer, tablet, or phone, and all your notes and progress will sync automatically.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer-links">
+        <a href="home.html">Home</a>
+        <a href="#terms">Terms of Service</a>
+        <a href="#privacy">Privacy Policy</a>
+        <a href="#contact">Contact Us</a>
+    </div>
+    <div class="footer-copy">© 2026 L3 Study Helper Pro — Transform your exam prep today.</div>
+</footer>
+
+<script>
+    // Form submission
+    document.getElementById('trialForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Welcome! Your free trial is being activated. You will be redirected to the course page.');
+        // Redirect to course page
+        window.location.href = 'course.html';
+    });
+
+    // FAQ Toggle
+    document.querySelectorAll('.faq-header').forEach(header => {
+        header.addEventListener('click', () => {
+            const item = header.parentElement;
+            
+            document.querySelectorAll('.faq-item').forEach(faq => {
+                if (faq !== item) faq.classList.remove('active');
+            });
+            
+            item.classList.toggle('active');
+        });
+    });
+</script>
+
+</body>
+</html>

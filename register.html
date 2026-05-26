@@ -6,31 +6,42 @@
     <title>Register</title>
 
     <link rel="stylesheet" href="login-register.css">
-    <script src="login-register.js" defer></script>
+    <script src="register.js" defer></script>
 </head>
 <body>
 
-<section class="form-card">
+<section class="form-card" role="main">
     <h1 id="title">Register Form</h1>
 
-    <label id="langLabel">Language</label>
-    <select onchange="changeLanguage(this.value)">
-        <option value="en">English</option>
-        <option value="fr">Français</option>
-        <option value="rw">Kinyarwanda</option>
-    </select>
+    <div class="language-selector">
+        <label id="langLabel" for="languageSelect">Language</label>
+        <select id="languageSelect" aria-label="Select language">
+            <option value="en">English</option>
+            <option value="fr">Français</option>
+            <option value="rw">Kinyarwanda</option>
+        </select>
+    </div>
 
-    <form onsubmit="return false;">
-        <label id="nameLabel" for="nameInput">Full Name</label>
-        <input id="nameInput" type="text" placeholder="Full name" required>
+    <form id="registerForm" aria-describedby="switchText">
+        <div class="form-group">
+            <label id="nameLabel" for="nameInput">Full Name</label>
+            <input id="nameInput" type="text" placeholder="Full name" required aria-required="true">
+            <span id="nameError" class="error-message" role="alert"></span>
+        </div>
 
-        <label id="emailLabel" for="emailInput">Email</label>
-        <input id="emailInput" type="email" placeholder="Email" required>
+        <div class="form-group">
+            <label id="emailLabel" for="emailInput">Email</label>
+            <input id="emailInput" type="email" placeholder="Email" required aria-required="true">
+            <span id="emailError" class="error-message" role="alert"></span>
+        </div>
 
-        <label id="passwordLabel" for="passwordInput">Password</label>
-        <input id="passwordInput" type="password" placeholder="Password" required minlength="6">
+        <div class="form-group">
+            <label id="passwordLabel" for="passwordInput">Password</label>
+            <input id="passwordInput" type="password" placeholder="Password" required minlength="6" aria-required="true">
+            <span id="passwordError" class="error-message" role="alert"></span>
+        </div>
 
-        <button id="mainButton" type="button" onclick="handleRegisterClick()">Register</button>
+        <button id="mainButton" type="button" aria-busy="false">Register</button>
     </form>
 
     <p id="switchText">

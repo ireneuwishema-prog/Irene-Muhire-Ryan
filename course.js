@@ -488,3 +488,61 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+// Check if user is logged in on page load
+document.addEventListener('DOMContentLoaded', () => {
+    checkLoginStatus();
+    setupLogout();
+    setupTabs();
+});
+
+// Check if user is logged in
+function checkLoginStatus() {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    
+    if (!currentUser) {
+        // Redirect to login if not logged in
+        window.location.href = 'login.html';
+        return;
+    }
+
+    // Display user info
+    document.getElementById('userName').textContent = currentUser.name || 'User';
+    document.getElementById('userEmail').textContent = currentUser.email || '';
+
+    // Show admin link if user is admin
+    if (currentUser.isAdmin === true) {
+        document.getElementById('adminLink').style.display = 'inline-block';
+    }
+}
+
+// Setup logout
+function setupLogout() {
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+        if (confirm('Are you sure you want to logout?')) {
+            localStorage.removeItem('currentUser');
+            sessionStorage.clear();
+            window.location.href = 'login.html';
+        }
+    });
+}
+
+// Setup tabs
+function setupTabs() {
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const panels = document.querySelectorAll('.panel');
+
+    tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const tabName = button.getAttribute('data-tab');
+
+            // Remove active class from all buttons and panels
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            panels.forEach(panel => panel.classList.remove('active'));
+
+            // Add active class to clicked button and corresponding panel
+            button.classList.add('active');
+            document.getElementById(tabName + '-panel').classList.add('active');
+        });
+    });
+}
+

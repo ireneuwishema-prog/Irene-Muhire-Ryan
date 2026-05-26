@@ -13,41 +13,43 @@
 </head>
 <body>
 
-<section class="form-card">
+<section class="form-card" role="main">
     <h1 id="title">Login Form</h1>
 
     <!-- Language selector -->
-    <label id="langLabel">Language</label>
-    <select onchange="changeLanguage(this.value)">
-        <option value="en">English</option>
-        <option value="fr">Français</option>
-        <option value="rw">Kinyarwanda</option>
-    </select>
-
-<form onsubmit="return false;">
-          <div class="form-container">
-    <!-- Email Block -->
-    <div class="input-block">
-        <label for="emailInput" id="emailLabel">Email</label>
-        <input type="email" id="emailInput" placeholder="Email" required>
+    <div class="language-selector">
+        <label id="langLabel" for="languageSelect">Language</label>
+        <select id="languageSelect" aria-label="Select language">
+            <option value="en">English</option>
+            <option value="fr">Français</option>
+            <option value="rw">Kinyarwanda</option>
+        </select>
     </div>
 
-    <!-- Password Block -->
-    <div class="input-block">
-        <label for="passwordInput" id="passwordLabel">Password</label>
-        <input type="password" id="passwordInput" placeholder="Password" required>
-    </div>
-</div>
+    <form id="loginForm" aria-describedby="switchText">
+        <!-- Email Block -->
+        <div class="form-group">
+            <label for="emailInput" id="emailLabel">Email</label>
+            <input type="email" id="emailInput" placeholder="Email" required aria-required="true">
+            <span id="emailError" class="error-message" role="alert"></span>
+        </div>
 
-<button id="mainButton" type="button" onclick="handleLoginClick()">Login</button>
+        <!-- Password Block -->
+        <div class="form-group">
+            <label for="passwordInput" id="passwordLabel">Password</label>
+            <input type="password" id="passwordInput" placeholder="Password" required aria-required="true">
+            <span id="passwordError" class="error-message" role="alert"></span>
+        </div>
+
+        <button id="mainButton" type="button" aria-busy="false">Login</button>
 
         <div class="role-actions">
-            <button type="button" class="btn-small" onclick="window.location.href='./admin.html'">Admin Login</button>
+            <button type="button" class="btn-admin" onclick="window.location.href='./admin.html'">Admin Login</button>
         </div>
     </form>
 
     <p id="switchText">
-        I don't have an account?
+        Don't have an account?
         <a href="register.html">Register</a>
     </p>
 
