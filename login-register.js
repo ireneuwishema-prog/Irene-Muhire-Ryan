@@ -239,4 +239,92 @@ function changeLanguage(lang) {
     }
 }
 
+const accountsKey = 'grpupAccounts';
+
+const emailInput = document.getElementById('emailInput');
+const passwordInput = document.getElementById('passwordInput');
+const emailError = document.getElementById('emailError');
+const passwordError = document.getElementById('passwordError');
+const mainButton = document.getElementById('mainButton');
+const registerButton = document.getElementById('registerButton');
+
+if (mainButton) mainButton.addEventListener('click', handleLogin);
+if (registerButton) registerButton.addEventListener('click', handleRegister);
+
+function handleLogin() {
+    clearErrors();
+
+    const email = emailInput.value.trim().toLowerCase();
+    const password = passwordInput.value;
+
+    if (!email) {
+        emailError.textContent = 'Enter your email';
+        return;
+    }
+    if (!password) {
+        passwordError.textContent = 'Enter your password';
+        return;
+    }
+
+    const account = getAccount(email);
+    if (!account) {
+        emailError.textContent = 'No account found';
+        return;
+    }
+    if (account.password !== password) {
+        passwordError.textContent = 'Wrong password';
+        return;
+    }
+
+    alert('Login successful');
+    window.location.href = 'home.html';
+}
+
+function handleRegister() {
+    clearErrors();
+
+    const email = emailInput.value.trim().toLowerCase();
+    const password = passwordInput.value;
+    const confirmPassword = document.getElementById('confirmPassword')?.value;
+
+    if (!email) {
+        emailError.textContent = 'Enter your email';
+        return;
+    }
+    if (!password) {
+        passwordError.textContent = 'Enter your password';
+        return;
+    }
+    if (confirmPassword !== undefined && password !== confirmPassword) {
+        passwordError.textContent = 'Passwords do not match';
+        return;
+    }
+
+    const accounts = getAccounts();
+    if (accounts[email]) {
+        emailError.textContent = 'Account already exists';
+        return;
+    }
+
+    accounts[email] = { email, password };
+    localStorage.setItem(accountsKey, JSON.stringify(accounts));
+
+    alert('Account created');
+    window.location.href = 'login.html';
+}
+
+function getAccounts() {
+    const stored = localStorage.getItem(accountsKey);
+    return stored ? JSON.parse(stored) : {};
+}
+
+function getAccount(email) {
+    return getAccounts()[email] || null;
+}
+
+function clearErrors() {
+    if (emailError) emailError.textContent = '';
+    if (passwordError) passwordError.textContent = '';
+}
+
 

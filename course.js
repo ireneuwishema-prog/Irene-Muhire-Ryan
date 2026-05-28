@@ -546,3 +546,145 @@ function setupTabs() {
     });
 }
 
+const translations = {
+    en: {
+        langLabel: 'Language',
+        topbarTitle: '📚 L3 Study Helper Pro',
+        logout: 'Logout',
+        bookTab: '📖 Book Upload',
+        notesTab: '✏️ Notes',
+        flashcardsTab: '🃏 Flashcards',
+        quizTab: '✅ Smart Quiz',
+        pastpaperTab: '📄 Past Paper',
+        bookTitle: '📖 Book & Document Summarizer',
+        bookDesc: 'Upload any book, article, or document - Get instant summary, key points, flashcards & quiz!',
+        bookUploadHint: 'Supports .txt files (Copy-paste from PDF/Word)',
+        bookTextLabel: '📝 Or paste your text here:',
+        summarizeBtn: '✨ Generate Summary & Key Points',
+        bookToFlashcardsBtn: 'Create Flashcards from Book',
+        bookToQuizBtn: 'Create Quiz from Book',
+        doAllBtn: 'Do All (Summary + Flashcards + Quiz)',
+        notesTitle: '📝 Your Study Notes',
+        notesDesc: 'Write or paste your L3 subject notes below',
+        saveNotesBtn: '💾 Save Notes',
+        generateFlashcardsBtn: '✨ Make Flashcards',
+        generateQuizBtn: '🎯 Make Smart Quiz',
+        flashcardsTitle: '🃏 Study Flashcards',
+        flashcardsInfo: '📌 No flashcards yet. Go to Notes or Book Upload tab to create some!',
+        resetFlashcardsBtn: '🗑️ Delete All Flashcards',
+        quizTitle: '✅ Smart Quiz System',
+        quizDesc: 'Test your knowledge with interactive quizzes',
+        standardQuizBtn: '📋 Standard Quiz',
+        reviewWrongBtn: '🔄 Review Wrong Answers',
+        randomQuizBtn: '🎲 Random Order Quiz',
+        submitQuizBtn: '📊 Submit & Grade',
+        showExplanationsBtn: '💡 Show Explanations',
+        retryWrongBtn: '🔄 Retry Wrong Answers',
+        resetQuizBtn: '🗑️ Reset Quiz',
+        pastpaperTitle: '📄 Past Paper to Study',
+        pastpaperDesc: 'Upload a past exam or paste the questions',
+        fileUploadHint: '(Save your exam as .txt file first)',
+        processPastPaperBtn: '🚀 Generate Flashcards & Quiz from Past Paper'
+    },
+    rw: {
+        langLabel: 'Ururimi',
+        topbarTitle: '📚 L3 Study Helper Pro',
+        logout: 'Gusohoka',
+        bookTab: '📖 Gutanga Igitabo',
+        notesTab: '✏️ Ibyanditswe',
+        flashcardsTab: '🃏 Flashcards',
+        quizTab: '✅ Ikizamini',
+        pastpaperTab: '📄 Impapuro z’Ikizamini',
+        bookTitle: '📖 Ihuriro ry’Igitabo n’Umwandiko',
+        bookDesc: 'Ohereza igitabo, inyandiko cyangwa inyandiko - ubone incamake, ingingo z’ingenzi, flashcards na quiz!',
+        bookUploadHint: 'Ifasha .txt (Copy-paste kuva PDF/Word)',
+        bookTextLabel: '📝 Cyangwa shyiramo inyandiko hano:',
+        summarizeBtn: '✨ Kora Incamake & Ingingo z’ingenzi',
+        bookToFlashcardsBtn: 'Kora Flashcards uhereye ku gitabo',
+        bookToQuizBtn: 'Kora Ikizamini uhereye ku gitabo',
+        doAllBtn: 'Kora byose (Incamake + Flashcards + Quiz)',
+        notesTitle: '📝 Inyandiko zawe z’Icyigisho',
+        notesDesc: 'Andika cyangwa shyiramo inyandiko zawe za L3',
+        saveNotesBtn: '💾 Bika Inyandiko',
+        generateFlashcardsBtn: '✨ Kora Flashcards',
+        generateQuizBtn: '🎯 Kora Ikizamini Cyiza',
+        flashcardsTitle: '🃏 Flashcards zo Kwiga',
+        flashcardsInfo: '📌 Nta flashcards ziriho. Jya kuri Notes cyangwa Book Upload kugirango ukore!',
+        resetFlashcardsBtn: '🗑️ Siba Flashcards Zose',
+        quizTitle: '✅ Sisitemu y’Ikizamini',
+        quizDesc: 'Gerageza ubumenyi bwawe n’ibizamini bitandukanye',
+        standardQuizBtn: '📋 Ikizamini Gisanzwe',
+        reviewWrongBtn: '🔄 Reba Ibyakozwe Neza',
+        randomQuizBtn: '🎲 Ikizamini mu buryo bwa Gutoranya',
+        submitQuizBtn: '📊 Ohereza & Hagaragaza',
+        showExplanationsBtn: '💡 Erekana Ibisobanuro',
+        retryWrongBtn: '🔄 Ongera Usubireho Ibitagize neza',
+        resetQuizBtn: '🗑️ Subiramo Ikizamini',
+        pastpaperTitle: '📄 Impapuro z’Ikizamini zo Kwiga',
+        pastpaperDesc: 'Ohereza ikizamini cya kera cyangwa shyiramo ibibazo',
+        fileUploadHint: '(Bika ikizamini cyawe nka .txt mbere)',
+        processPastPaperBtn: '🚀 Kora Flashcards & Quiz uhereye ku mpapuro'
+    }
+};
+
+const ui = {
+    langLabel: document.getElementById('langLabel'),
+    topbarTitle: document.querySelector('.topbar-title'),
+    logoutBtn: document.getElementById('logoutBtn'),
+    bookTab: document.querySelector('[data-tab="book"]'),
+    notesTab: document.querySelector('[data-tab="notes"]'),
+    flashcardsTab: document.querySelector('[data-tab="flashcards"]'),
+    quizTab: document.querySelector('[data-tab="quiz"]'),
+    pastpaperTab: document.querySelector('[data-tab="pastpaper"]'),
+    bookTitle: document.querySelector('#book-panel h2'),
+    bookDesc: document.querySelector('#book-panel .panel-desc'),
+    bookUploadHint: document.querySelector('#bookUploadArea .upload-hint'),
+    bookTextLabel: document.querySelector('label[for="bookTextInput"]'),
+    summarizeBtn: document.getElementById('summarizeBtn'),
+    bookToFlashcardsBtn: document.getElementById('bookToFlashcardsBtn'),
+    bookToQuizBtn: document.getElementById('bookToQuizBtn'),
+    doAllBtn: document.getElementById('doAllBtn'),
+    notesTitle: document.querySelector('#notes-panel h2'),
+    notesDesc: document.querySelector('#notes-panel .panel-desc'),
+    saveNotesBtn: document.getElementById('saveNotesBtn'),
+    generateFlashcardsBtn: document.getElementById('generateFlashcardsBtn'),
+    generateQuizBtn: document.getElementById('generateQuizBtn'),
+    flashcardsTitle: document.querySelector('#flashcards-panel h2'),
+    flashcardsInfo: document.querySelector('#flashcards-panel .info-text'),
+    resetFlashcardsBtn: document.getElementById('resetFlashcardsBtn'),
+    quizTitle: document.querySelector('#quiz-panel h2'),
+    quizDesc: document.querySelector('#quiz-panel .panel-desc'),
+    standardQuizBtn: document.getElementById('standardQuizBtn'),
+    reviewWrongBtn: document.getElementById('reviewWrongBtn'),
+    randomQuizBtn: document.getElementById('randomQuizBtn'),
+    submitQuizBtn: document.getElementById('submitQuizBtn'),
+    showExplanationsBtn: document.getElementById('showExplanationsBtn'),
+    retryWrongBtn: document.getElementById('retryWrongBtn'),
+    resetQuizBtn: document.getElementById('resetQuizBtn'),
+    pastpaperTitle: document.querySelector('#pastpaper-panel h2'),
+    pastpaperDesc: document.querySelector('#pastpaper-panel .panel-desc'),
+    fileUploadHint: document.querySelector('#uploadArea .upload-hint'),
+    processPastPaperBtn: document.getElementById('processPastPaperBtn')
+};
+
+function applyLanguage(lang) {
+    const current = translations[lang] || translations.en;
+    Object.keys(ui).forEach(key => {
+        const element = ui[key];
+        if (!element) return;
+        const text = current[key];
+        if (text !== undefined) element.textContent = text;
+    });
+    document.documentElement.lang = lang;
+}
+
+document.querySelectorAll('.lang-btn').forEach(button => {
+    button.addEventListener('click', () => {
+        document.querySelector('.lang-btn.active')?.classList.remove('active');
+        button.classList.add('active');
+        applyLanguage(button.dataset.lang);
+    });
+});
+
+applyLanguage('en');
+
